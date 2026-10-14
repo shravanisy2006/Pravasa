@@ -10,8 +10,9 @@ Pravasa extras: how to get there, what's nearby, and where to stay.
   free, so these are labelled as suggestions to check before booking.
 """
 
+from functools import lru_cache
+
 import requests
-import streamlit as st
 
 from planner import straight_line_km
 
@@ -102,15 +103,15 @@ TYPE_LABELS = {"hotel": "Hotel", "guest_house": "Guest house / homestay",
                "hostel": "Hostel", "resort": "Resort", "motel": "Motel"}
 
 
-@st.cache_data(ttl=24 * 3600, show_spinner=False)
+@lru_cache(maxsize=256)
 def _osm_stays(lat, lon, radius_m):
     query = f"""
-    [out:json][timeout:20];
+    [out:json][timeout:10];
     nwr["tourism"~"^(hotel|guest_house|hostel|resort|motel)$"]["name"](around:{radius_m},{lat},{lon});
     out center 40;
     """
     r = requests.post("https://overpass-api.de/api/interpreter",
-                      data={"data": query}, headers=HEADERS, timeout=25)
+                      data={"data": query}, headers=HEADERS, timeout=12)
     r.raise_for_status()
     return r.json().get("elements", [])
 
@@ -119,7 +120,7 @@ def hotels_near(lat, lon, stay_style, limit=3):
     """Up to `limit` named stays near (lat, lon), best match for the style first.
     Returns a list (possibly empty), or None if OpenStreetMap can't be reached."""
     try:
-        elements = _osm_stays(round(lat, 4), round(lon, 4), 6000)
+        elements = _osm_stays(round(lat, 4), round(lon, 4), 5000)
     except Exception as e:
         print("OpenStreetMap error:", e)
         return None

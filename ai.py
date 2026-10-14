@@ -1,18 +1,22 @@
 """
 Pravasa AI helpers (Google Gemini).
 
-Two jobs:
-1. understand_request(): turn a free-text request in English or Kannada,
-   e.g. "ಬೆಂಗಳೂರಿನಿಂದ 3 ದಿನದ ದೇವಸ್ಥಾನ ಪ್ರವಾಸ, ₹10000 ಬಜೆಟ್",
-   into trip settings (days, budget, interests...).
-2. write_story(): turn the finished plan into a friendly trip description,
-   in English or Kannada. The AI is only given places from OUR plan,
-   so it describes real, verified places instead of inventing new ones.
+Three jobs:
+1. understand_audio(): listen to a voice recording (Kannada or English) and,
+   in ONE step, write down what was said AND pull out the trip settings.
+2. understand_request(): the same for typed text.
+3. stream_story(): write a short, friendly trip description in English or
+   Kannada, sent word by word so it appears on screen straight away.
+   The AI only gets places from OUR plan, so it can't invent new ones.
 
-If no API key is set, or the AI call fails, both functions return None
-and the app keeps working without the AI parts.
+Speed settings: "thinking" is kept low (these are simple tasks) and voice
+is understood in a single request instead of two.
+
+If no API key is set, or a call fails, the functions return None and the
+app keeps working without the AI parts.
 """
 
+import base64
 import json
 import os
 import re
@@ -22,6 +26,7 @@ from dotenv import load_dotenv
 load_dotenv()  # reads GEMINI_API_KEY from the .env file on your laptop
 
 MODEL = "gemini-3.8-flash"  # change here if Google renames the model
+FAST = {"thinking_level": "low"}  # less "thinking" = faster answers
 
 ALLOWED = {
     "start_city": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi"],
@@ -30,14 +35,34 @@ ALLOWED = {
     "stay_style": ["Budget", "Comfort", "Premium"],
 }
 
+SETTINGS_INSTRUCTIONS = (
+    "Reply with ONLY a JSON object, no other text, with these keys:\n"
+    '  "days": number 1-10,\n'
+    '  "budget": number in rupees,\n'
+    f'  "start_city": one of {ALLOWED["start_city"]},\n'
+    f'  "interests": list from {ALLOWED["interests"]},\n'
+    '  "month": number 1-12 or null if not mentioned,\n'
+    f'  "transport": one of {ALLOWED["transport"]},\n'
+    f'  "stay_style": one of {ALLOWED["stay_style"]},\n'
+    '  "language": "kn" if the message is mainly Kannada, otherwise "en".\n'
+    "Use null for anything not mentioned. Map ideas to the closest interest, "
+    "e.g. waterfalls or hills -> Nature, forts or palaces -> Heritage, "
+    "safari -> Wildlife."
+)
+
+_CLIENT = None
+
 
 def _client():
-    """Create a Gemini client, or return None if there's no API key."""
+    """Create the Gemini client once and reuse it (or None if no API key)."""
+    global _CLIENT
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         return None
-    from google import genai
-    return genai.Client(api_key=key)
+    if _CLIENT is None:
+        from google import genai
+        _CLIENT = genai.Client(api_key=key)
+    return _CLIENT
 
 
 def ai_available():
@@ -54,6 +79,7 @@ def _ask(system_instruction, prompt):
             model=MODEL,
             system_instruction=system_instruction,
             input=prompt,
+            generation_config=FAST,
         )
         return interaction.output_text
     except Exception as e:  # network problem, quota reached, wrong key...
@@ -61,30 +87,11 @@ def _ask(system_instruction, prompt):
         return None
 
 
-def understand_request(text):
-    """Read a free-text trip request (English or Kannada) and return settings."""
-    system = (
-        "You extract trip settings from a traveller's message about a trip in "
-        "Karnataka. The message may be in English, Kannada or a mix. "
-        "Reply with ONLY a JSON object, no other text, with these keys:\n"
-        '  "days": number 1-10,\n'
-        '  "budget": number in rupees,\n'
-        f'  "start_city": one of {ALLOWED["start_city"]},\n'
-        f'  "interests": list from {ALLOWED["interests"]},\n'
-        '  "month": number 1-12 or null if not mentioned,\n'
-        f'  "transport": one of {ALLOWED["transport"]},\n'
-        f'  "stay_style": one of {ALLOWED["stay_style"]},\n'
-        '  "language": "kn" if the message is mainly Kannada, otherwise "en".\n'
-        "Use null for anything not mentioned. Map ideas to the closest interest, "
-        "e.g. waterfalls or hills -> Nature, forts or palaces -> Heritage, "
-        "safari -> Wildlife."
-    )
-    reply = _ask(system, text)
+def _parse_settings(reply):
+    """Turn the AI's JSON reply into clean, safe trip settings."""
     if not reply:
         return None
-
-    # Pull out the {...} part in case the model adds extra words
-    match = re.search(r"\{.*\}", reply, re.DOTALL)
+    match = re.search(r"\{.*\}", reply, re.DOTALL)  # the {...} part only
     if not match:
         return None
     try:
@@ -107,30 +114,72 @@ def understand_request(text):
     if interests:
         clean["interests"] = interests
     clean["language"] = "kn" if data.get("language") == "kn" else "en"
+    if isinstance(data.get("transcript"), str):
+        clean["transcript"] = data["transcript"].strip()
     return clean
 
 
-def write_story(result, start_city, language="en"):
-    """Write a friendly description of the planned trip."""
-    # Give the AI only the facts from our plan
+def understand_request(text):
+    """Read a typed trip request (English or Kannada) and return settings."""
+    system = (
+        "You extract trip settings from a traveller's message about a trip in "
+        "Karnataka. The message may be in English, Kannada or a mix.\n"
+        + SETTINGS_INSTRUCTIONS
+    )
+    return _parse_settings(_ask(system, text))
+
+
+def understand_audio(audio_bytes, mime_type="audio/wav"):
+    """Listen to a voice request and return settings plus a 'transcript'."""
+    system = (
+        "You listen to a traveller's voice message about a trip in Karnataka. "
+        "It may be in Kannada, English or a mix.\n"
+        + SETTINGS_INSTRUCTIONS
+        + '\nAlso include "transcript": exactly what was said, with Kannada '
+          "words in Kannada script and English words in English."
+    )
+    prompt = [
+        {"type": "text", "text": "Here is the voice message."},
+        {"type": "audio",
+         "data": base64.b64encode(audio_bytes).decode("utf-8"),
+         "mime_type": mime_type},
+    ]
+    return _parse_settings(_ask(system, prompt))
+
+
+def _story_request(result, start_city, language):
     lines = []
     for day in result["days"]:
-        names = [
-            f"{s['place']['name']} ({s['place']['famous_for']}; "
-            f"try {s['place']['local_food']})"
-            for s in day["stops"]
-        ]
+        names = [f"{s['place']['name']} ({s['place']['famous_for']})" for s in day["stops"]]
         lines.append(f"Day {day['day']}: " + ("; ".join(names) or "free day"))
-    plan_text = "\n".join(lines)
-
     lang = "Kannada (ಕನ್ನಡ script)" if language == "kn" else "English"
     system = (
-        "You are Pravasa, a warm and knowledgeable Karnataka travel guide. "
-        f"Write in {lang}. Describe the given itinerary day by day in a lively, "
-        "friendly way: one short paragraph per day, with a line of history or an "
-        "interesting fact for each place and a practical tip. "
+        "You are Pravasa, a warm Karnataka travel guide. "
+        f"Write in {lang}. Describe the itinerary day by day: two or three "
+        "lively sentences per day, with one interesting fact or bit of history. "
         "Only mention the places listed. Do not invent prices, timings or new "
-        "places. Keep it under 300 words."
+        "places. Keep it under 150 words."
     )
-    prompt = f"Trip starting from {start_city}:\n{plan_text}"
-    return _ask(system, prompt)
+    prompt = f"Trip starting from {start_city}:\n" + "\n".join(lines)
+    return system, prompt
+
+
+def stream_story(result, start_city, language="en"):
+    """Yield the trip story a few words at a time (for st.write_stream)."""
+    client = _client()
+    if client is None:
+        return
+    system, prompt = _story_request(result, start_city, language)
+    try:
+        stream = client.interactions.create(
+            model=MODEL,
+            system_instruction=system,
+            input=prompt,
+            generation_config=FAST,
+            stream=True,
+        )
+        for event in stream:
+            if event.event_type == "step.delta" and event.delta.type == "text":
+                yield event.delta.text
+    except Exception as e:
+        print("Gemini story error:", e)

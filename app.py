@@ -1,15 +1,17 @@
 import calendar
 import datetime
 import json
+from concurrent.futures import ThreadPoolExecutor
 
 import pandas as pd
 import streamlit as st
 
-from ai import ai_available, understand_request, write_story
+from ai import ai_available, stream_story, understand_audio, understand_request
 from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from places import get_place_info, get_road_route, google_maps_day_link, google_maps_link
 from planner import START_CITIES, STAY_STYLES, TRANSPORT, plan_trip
 from trip_map import add_real_roads, build_trip_map
+from voice import plan_script, speak
 
 st.set_page_config(page_title="Pravasa - Karnataka Travel Planner", page_icon="🧭")
 
@@ -30,6 +32,7 @@ defaults = {
     "stay_style": "Budget",
     "interests": [],
     "language": "English",
+    "request": "",
 }
 for key, value in defaults.items():
     st.session_state.setdefault(key, value)
@@ -38,34 +41,68 @@ st.title("Pravasa: Karnataka AI Travel Planner")
 st.write("Plan your trip in English or ಕನ್ನಡ")
 st.caption(f"{len(destinations)} verified destinations across Karnataka")
 
-# ---------- Option 1: just describe the trip ----------
+# ---------- Option 1: just describe the trip (type or speak) ----------
+def apply_settings(settings):
+    """Fill the form with what the AI understood, then plan straight away."""
+    for key in ("start_city", "days", "transport", "budget", "stay_style", "interests"):
+        if key in settings:
+            st.session_state[key] = settings[key]
+    if "month" in settings:
+        st.session_state["month_name"] = MONTHS[settings["month"] - 1]
+    st.session_state["language"] = "ಕನ್ನಡ" if settings["language"] == "kn" else "English"
+    st.session_state["plan_now"] = True
+    st.rerun()
+
+
 st.subheader("Tell me about your trip")
+
+# Voice input: ONE AI request both hears the words and understands the trip
+recording = st.audio_input("🎤 Speak in Kannada or English")
+if recording is not None:
+    audio_bytes = recording.getvalue()
+    audio_id = hash(audio_bytes)
+    if st.session_state.get("last_audio") != audio_id:  # only process new recordings
+        st.session_state["last_audio"] = audio_id
+        if not ai_available():
+            st.error("The AI isn't set up yet: add your GEMINI_API_KEY to the .env file.")
+        else:
+            with st.spinner("Listening and planning..."):
+                settings = understand_audio(audio_bytes, recording.type or "audio/wav")
+            if settings and settings.get("interests"):
+                st.session_state["request"] = settings.get("transcript", "")
+                st.session_state["heard"] = settings.get("transcript", "")
+                apply_settings(settings)
+            elif settings and settings.get("transcript"):
+                st.session_state["request"] = settings["transcript"]
+                st.warning("I heard you, but please also say what you enjoy "
+                           "(temples, beaches, nature...).")
+            else:
+                st.error("Sorry, I couldn't catch that. Please try recording again.")
+
 request = st.text_area(
-    "Type in English or Kannada",
+    "Or type in English or Kannada",
+    key="request",
     placeholder="e.g. 4 days from Bengaluru, love beaches and temples, ₹20000 budget\n"
                 "ಅಥವಾ: ಮೈಸೂರಿನಿಂದ 3 ದಿನದ ಪ್ರವಾಸ, ಕಾಡು ಮತ್ತು ಜಲಪಾತ ಇಷ್ಟ",
 )
+if st.session_state.get("heard"):
+    st.info(f"🎧 I heard: {st.session_state['heard']}")
+
 if st.button("✨ Plan it for me"):
     if not ai_available():
         st.error("The AI isn't set up yet: add your GEMINI_API_KEY to the .env file.")
     elif not request.strip():
-        st.warning("Type a few words about your trip first.")
+        st.warning("Type or speak a few words about your trip first.")
     else:
+        st.session_state["heard"] = ""
         with st.spinner("Understanding your request..."):
             settings = understand_request(request)
-        if not settings:
-            st.error("Sorry, I couldn't understand that. Try again or use the form below.")
+        if settings and settings.get("interests"):
+            apply_settings(settings)
+        elif settings:
+            st.warning("Please also say what you enjoy (temples, beaches, nature...).")
         else:
-            # Fill the form with what the AI understood, then plan straight away
-            for key in ("start_city", "days", "transport", "budget",
-                        "stay_style", "interests"):
-                if key in settings:
-                    st.session_state[key] = settings[key]
-            if "month" in settings:
-                st.session_state["month_name"] = MONTHS[settings["month"] - 1]
-            st.session_state["language"] = "ಕನ್ನಡ" if settings["language"] == "kn" else "English"
-            st.session_state["plan_now"] = True
-            st.rerun()
+            st.error("Sorry, I couldn't understand that. Try again or use the form below.")
 
 # ---------- Option 2: fill the form ----------
 st.subheader("Or choose the details")
@@ -121,18 +158,21 @@ if "result" in st.session_state:
     else:
         st.success(f"Within budget, with about ₹{info['budget'] - costs['Total']:,} to spare.")
 
-    # AI trip story (written once per plan, then remembered)
-    if ai_available():
-        if st.session_state.get("story") is None:
-            lang = "kn" if info["language"] == "ಕನ್ನಡ" else "en"
-            with st.spinner("Writing your trip story..."):
-                st.session_state["story"] = write_story(result, info["start_city"], lang) or ""
-        if st.session_state["story"]:
-            with st.container(border=True):
-                st.markdown("#### ✨ Your trip, in short")
-                st.markdown(st.session_state["story"])
-        else:
-            st.info("The trip story couldn't be written right now, but your plan is below.")
+    # The story and Listen button go here, but are filled in LAST,
+    # so the map and day plans appear without waiting for the AI
+    story_box = st.container()
+
+    # Fetch photos/history and hotels for every stop at the same time
+    with st.spinner("Loading photos and places to stay..."):
+        stops = [s["place"] for d in result["days"] for s in d["stops"]]
+        nights = [d["stops"][-1]["place"] for d in result["days"][:-1] if d["stops"]]
+        with ThreadPoolExecutor(max_workers=10) as pool:
+            wiki_jobs = {p["id"]: pool.submit(get_place_info, p["name"], p["district"])
+                         for p in stops}
+            hotel_jobs = {p["id"]: pool.submit(hotels_near, p["lat"], p["lon"],
+                                               info["stay_style"]) for p in nights}
+            wiki_info = {k: f.result() for k, f in wiki_jobs.items()}
+            hotel_info = {k: f.result() for k, f in hotel_jobs.items()}
 
     # Route map for the whole trip
     st.subheader("🗺️ Your route")
@@ -164,7 +204,7 @@ if "result" in st.session_state:
                 else:
                     st.write(f"🚗 {travel}")
 
-                wiki = get_place_info(place["name"], place["district"])
+                wiki = wiki_info.get(place["id"])
                 photo_col, text_col = st.columns([1, 2])
                 with photo_col:
                     if wiki and wiki.get("image"):
@@ -208,8 +248,7 @@ if "result" in st.session_state:
             if day["day"] != last_day:
                 night = day["stops"][-1]["place"]
                 st.markdown(f"#### 🏨 Where to stay tonight, near {night['name']}")
-                with st.spinner("Finding places to stay..."):
-                    stays = hotels_near(night["lat"], night["lon"], info["stay_style"])
+                stays = hotel_info.get(night["id"])
                 if stays:
                     for h in stays:
                         extra = f" · ⭐ {h['stars']}" if h["stars"] else ""
@@ -231,6 +270,31 @@ if "result" in st.session_state:
     st.subheader("Cost breakdown (approximate)")
     breakdown = {k: v for k, v in costs.items() if k != "Total"}
     st.bar_chart(pd.Series(breakdown, name="₹"))
+
+    with story_box:
+        speech_lang = "kn" if info["language"] == "ಕನ್ನಡ" else "en"
+        if ai_available():
+            with st.container(border=True):
+                st.markdown("#### ✨ Your trip, in short")
+                if st.session_state.get("story") is None:
+                    # Appears word by word while the AI writes it
+                    st.session_state["story"] = st.write_stream(
+                        stream_story(result, info["start_city"], speech_lang)) or ""
+                else:
+                    st.markdown(st.session_state["story"])
+                if not st.session_state["story"]:
+                    st.caption("The trip story couldn't be written right now.")
+
+        listen_label = "🔊 ಪ್ರವಾಸವನ್ನು ಕೇಳಿ (Listen)" if speech_lang == "kn" else "🔊 Listen to your trip"
+        if st.button(listen_label):
+            script = st.session_state.get("story") or plan_script(
+                result, info["start_city"], speech_lang)
+            with st.spinner("Preparing audio..."):
+                audio = speak(script, speech_lang)
+            if audio:
+                st.audio(audio, format="audio/mp3", autoplay=True)
+            else:
+                st.error("Couldn't create the audio right now. Check your internet connection.")
 
 # ---------- All destinations ----------
 with st.expander("See all destinations on a map"):

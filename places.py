@@ -8,20 +8,30 @@ Pravasa place helpers: photos, history, real road routes and map links.
   directions. They're just web addresses, so they need no API key, and on a
   phone they open turn-by-turn navigation.
 
+Results are remembered (lru_cache), so the same lookup is never made twice.
 Every function fails safely: if the internet or a service is down, it
 returns None and the app shows the rest of the plan anyway.
 """
 
+from functools import lru_cache
+
 import requests
-import streamlit as st
 
 # Wikipedia asks apps to identify themselves
 HEADERS = {"User-Agent": "Pravasa-Karnataka-Travel-Planner/1.0 (student project)"}
 
 
-@st.cache_data(ttl=24 * 3600, show_spinner=False)
 def get_place_info(name, district):
     """Return {'summary', 'image', 'url'} from Wikipedia, or None."""
+    try:
+        return _fetch_place_info(name, district)
+    except Exception as e:
+        print("Wikipedia error:", e)
+        return None  # not remembered, so it's tried again next time
+
+
+@lru_cache(maxsize=512)
+def _fetch_place_info(name, district):
     params = {
         "action": "query",
         "format": "json",
@@ -37,26 +47,21 @@ def get_place_info(name, district):
         "inprop": "url",
         "redirects": 1,
     }
-    try:
-        r = requests.get("https://en.wikipedia.org/w/api.php",
-                         params=params, headers=HEADERS, timeout=8)
-        r.raise_for_status()
-        pages = r.json().get("query", {}).get("pages", {})
-        if not pages:
-            return None
-        page = next(iter(pages.values()))
-        return {
-            "title": page.get("title"),
-            "summary": page.get("extract", ""),
-            "image": page.get("thumbnail", {}).get("source"),
-            "url": page.get("fullurl"),
-        }
-    except Exception as e:
-        print("Wikipedia error:", e)
+    r = requests.get("https://en.wikipedia.org/w/api.php",
+                     params=params, headers=HEADERS, timeout=6)
+    r.raise_for_status()
+    pages = r.json().get("query", {}).get("pages", {})
+    if not pages:
         return None
+    page = next(iter(pages.values()))
+    return {
+        "title": page.get("title"),
+        "summary": page.get("extract", ""),
+        "image": page.get("thumbnail", {}).get("source"),
+        "url": page.get("fullurl"),
+    }
 
 
-@st.cache_data(ttl=24 * 3600, show_spinner=False)
 def get_road_route(points):
     """
     points: tuple of (lat, lon) in visiting order.
@@ -65,28 +70,33 @@ def get_road_route(points):
     """
     if len(points) < 2:
         return None
+    try:
+        return _fetch_road_route(points)
+    except Exception as e:
+        print("Routing error:", e)
+        return None  # not remembered, so it's tried again next time
+
+
+@lru_cache(maxsize=512)
+def _fetch_road_route(points):
     # OSRM wants "lon,lat;lon,lat;..."
     coords = ";".join(f"{lon},{lat}" for lat, lon in points)
     url = f"https://router.project-osrm.org/route/v1/driving/{coords}"
-    try:
-        r = requests.get(url, params={"overview": "full", "geometries": "geojson"},
-                         headers=HEADERS, timeout=10)
-        r.raise_for_status()
-        data = r.json()
-        if data.get("code") != "Ok":
-            return None
-        route = data["routes"][0]
-        return {
-            "km": round(route["distance"] / 1000),
-            "hours": round(route["duration"] / 3600, 1),
-            "legs": [(round(leg["distance"] / 1000), round(leg["duration"] / 3600, 1))
-                     for leg in route["legs"]],
-            # GeoJSON gives [lon, lat]; maps want (lat, lon)
-            "path": [(lat, lon) for lon, lat in route["geometry"]["coordinates"]],
-        }
-    except Exception as e:
-        print("Routing error:", e)
+    r = requests.get(url, params={"overview": "full", "geometries": "geojson"},
+                     headers=HEADERS, timeout=10)
+    r.raise_for_status()
+    data = r.json()
+    if data.get("code") != "Ok":
         return None
+    route = data["routes"][0]
+    return {
+        "km": round(route["distance"] / 1000),
+        "hours": round(route["duration"] / 3600, 1),
+        "legs": [(round(leg["distance"] / 1000), round(leg["duration"] / 3600, 1))
+                 for leg in route["legs"]],
+        # GeoJSON gives [lon, lat]; maps want (lat, lon)
+        "path": [(lat, lon) for lon, lat in route["geometry"]["coordinates"]],
+    }
 
 
 def google_maps_link(lat, lon):

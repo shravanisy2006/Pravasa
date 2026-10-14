@@ -11,6 +11,7 @@ per day, numbered stops, and the real road path when available.
 """
 
 import copy
+from concurrent.futures import ThreadPoolExecutor
 
 import folium
 
@@ -29,32 +30,43 @@ def add_real_roads(result, start_city, transport):
     # Routing gives car times; buses and bikes are a bit slower
     slow_factor = CAR_SPEED / TRANSPORT[transport]["speed_kmph"]
 
-    current = START_CITIES[start_city]
-    all_real = True
-    real_km = 0
-
+    # Work out each day's points first...
+    home = START_CITIES[start_city]
+    current = home
+    day_points = []
     for day in plan["days"]:
         points = [current] + [(s["place"]["lat"], s["place"]["lon"]) for s in day["stops"]]
         day["start_point"] = current
         day["gmaps"] = google_maps_day_link(points)
         day["route"] = None
+        day_points.append(tuple(points))
+        current = points[-1]
 
-        if day["stops"]:
-            route = get_road_route(tuple(points))
-            if route:
-                day["route"] = route
-                real_km += route["km"]
-                for stop, (km, hours) in zip(day["stops"], route["legs"]):
-                    stop["travel_km"] = km
-                    stop["travel_hours"] = round(hours * slow_factor, 1)
-                    stop["real_road"] = True
-            else:
-                all_real = False
-            current = points[-1]
+    # ...then ask for all the routes at the same time (much faster than one by one)
+    requests_to_make = [p for p in day_points if len(p) > 1]
+    if current != home:
+        requests_to_make.append((current, home))
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        routes = dict(zip(requests_to_make, pool.map(get_road_route, requests_to_make)))
+
+    all_real = True
+    real_km = 0
+    for day, points in zip(plan["days"], day_points):
+        if not day["stops"]:
+            continue
+        route = routes.get(points)
+        if route:
+            day["route"] = route
+            real_km += route["km"]
+            for stop, (km, hours) in zip(day["stops"], route["legs"]):
+                stop["travel_km"] = km
+                stop["travel_hours"] = round(hours * slow_factor, 1)
+                stop["real_road"] = True
+        else:
+            all_real = False
 
     # Drive home at the end
-    home = START_CITIES[start_city]
-    back = get_road_route((current, home)) if current != home else {"km": 0}
+    back = routes.get((current, home)) if current != home else {"km": 0}
     if back:
         plan["return_km"] = back["km"]
         real_km += back["km"]
