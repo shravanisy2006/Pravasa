@@ -6,7 +6,9 @@ import pandas as pd
 import streamlit as st
 
 from ai import ai_available, understand_request, write_story
+from places import get_place_info, get_road_route, google_maps_day_link, google_maps_link
 from planner import START_CITIES, STAY_STYLES, TRANSPORT, plan_trip
+from trip_map import add_real_roads, build_trip_map
 
 st.set_page_config(page_title="Pravasa - Karnataka Travel Planner", page_icon="🧭")
 
@@ -90,13 +92,16 @@ if clicked or st.session_state.pop("plan_now", False):
     s["result"] = plan_trip(destinations, s.days, s.interests, s.start_city,
                             month, s.transport, s.stay_style)
     s["result_info"] = {"days": s.days, "start_city": s.start_city,
-                        "budget": s.budget, "language": s.language}
+                        "budget": s.budget, "language": s.language,
+                        "transport": s.transport}
     s["story"] = None  # write a fresh story for this new plan
 
 # ---------- Show the plan ----------
 if "result" in st.session_state:
-    result = st.session_state["result"]
     info = st.session_state["result_info"]
+    with st.spinner("Finding real road routes..."):
+        result = add_real_roads(st.session_state["result"], info["start_city"],
+                                info["transport"])
     costs = result["costs"]
 
     st.subheader(f"Your {info['days']}-day trip from {info['start_city']}")
@@ -104,6 +109,8 @@ if "result" in st.session_state:
     m1.metric("Estimated cost", f"₹{costs['Total']:,}")
     m2.metric("Your budget", f"₹{info['budget']:,}")
     m3.metric("Total distance", f"{result['total_km']:,} km")
+    if not result["real_roads"]:
+        st.caption("Some distances are estimates (the road routing service couldn't be reached).")
 
     if costs["Total"] > info["budget"]:
         st.warning(
@@ -126,24 +133,47 @@ if "result" in st.session_state:
         else:
             st.info("The trip story couldn't be written right now, but your plan is below.")
 
+    # Route map for the whole trip
+    st.subheader("🗺️ Your route")
+    trip_map = build_trip_map(result, info["start_city"])
+    st.iframe(trip_map.get_root().render(), height=460)
+    st.caption("Each colour is one day. Click a dot for details.")
+
     # One tab per day
     tabs = st.tabs([f"Day {d['day']}" for d in result["days"]])
     for tab, day in zip(tabs, result["days"]):
         with tab:
             if not day["stops"]:
                 st.info("A free day to relax, shop or revisit a favourite spot.")
+                continue
+            if day.get("gmaps"):
+                st.link_button("🧭 Open today's full route in Google Maps", day["gmaps"])
+
             for stop in day["stops"]:
                 place = stop["place"]
                 st.markdown(f"### {place['name']}")
                 st.caption(f"{place['name_kn']} · {place['district']}")
+
+                road = "by road" if stop.get("real_road") else "estimated"
+                travel = f"{stop['travel_km']} km ({road}) · about {stop['travel_hours']} hours to get here"
                 if stop["long_travel_day"]:
-                    st.warning(
-                        f"Long travel day: about {stop['travel_km']} km "
-                        f"(~{stop['travel_hours']} hours) to get here."
-                    )
+                    st.warning(f"Long travel day: {travel}.")
                 else:
-                    st.write(f"🚗 {stop['travel_km']} km · about {stop['travel_hours']} hours to get here")
-                st.write(place["famous_for"])
+                    st.write(f"🚗 {travel}")
+
+                wiki = get_place_info(place["name"], place["district"])
+                photo_col, text_col = st.columns([1, 2])
+                with photo_col:
+                    if wiki and wiki.get("image"):
+                        st.image(wiki["image"], width="stretch")
+                    st.link_button("📍 Directions", google_maps_link(place["lat"], place["lon"]),
+                                   width="stretch")
+                with text_col:
+                    st.markdown(f"**Famous for:** {place['famous_for']}")
+                    if wiki and wiki.get("summary"):
+                        st.write(wiki["summary"])
+                        st.caption(f"Source: [Wikipedia]({wiki['url']})")
+
                 fee = place.get("entry_fee_inr_approx")
                 fee_text = "Free" if fee == 0 else (f"about ₹{fee}" if fee else place.get("fee_note", "Check locally"))
                 st.write(
