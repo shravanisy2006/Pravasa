@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 from ai import ai_available, understand_request, write_story
+from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from places import get_place_info, get_road_route, google_maps_day_link, google_maps_link
 from planner import START_CITIES, STAY_STYLES, TRANSPORT, plan_trip
 from trip_map import add_real_roads, build_trip_map
@@ -93,7 +94,7 @@ if clicked or st.session_state.pop("plan_now", False):
                             month, s.transport, s.stay_style)
     s["result_info"] = {"days": s.days, "start_city": s.start_city,
                         "budget": s.budget, "language": s.language,
-                        "transport": s.transport}
+                        "transport": s.transport, "stay_style": s.stay_style}
     s["story"] = None  # write a fresh story for this new plan
 
 # ---------- Show the plan ----------
@@ -140,6 +141,8 @@ if "result" in st.session_state:
     st.caption("Each colour is one day. Click a dot for details.")
 
     # One tab per day
+    planned_ids = {s["place"]["id"] for d in result["days"] for s in d["stops"]}
+    last_day = result["days"][-1]["day"]
     tabs = st.tabs([f"Day {d['day']}" for d in result["days"]])
     for tab, day in zip(tabs, result["days"]):
         with tab:
@@ -181,7 +184,44 @@ if "result" in st.session_state:
                     f"🎟️ Entry: {fee_text} · 🕘 {place['timings']}"
                 )
                 st.write(f"🍛 Try: {place['local_food']}")
+
+                with st.expander("🚌 Ways to get here"):
+                    options = transport_options(stop["travel_km"], place, info["transport"])
+                    st.dataframe(
+                        pd.DataFrame([{
+                            "": "⭐ Best for you" if o["recommended"] else "",
+                            "How": o["mode"], "Time": o["time"],
+                            "Approx. cost": o["cost"], "Tip": o["note"],
+                        } for o in options]),
+                        hide_index=True, width="stretch",
+                    )
+
+                near = nearby_places(place, destinations, planned_ids)
+                if near:
+                    with st.expander("📌 Also nearby"):
+                        for n in near:
+                            st.markdown(f"**{n['place']['name']}** ({n['km']} km): "
+                                        f"{n['place']['famous_for']}")
                 st.divider()
+
+            # Where to stay tonight (not needed on the last day: you head home)
+            if day["day"] != last_day:
+                night = day["stops"][-1]["place"]
+                st.markdown(f"#### 🏨 Where to stay tonight, near {night['name']}")
+                with st.spinner("Finding places to stay..."):
+                    stays = hotels_near(night["lat"], night["lon"], info["stay_style"])
+                if stays:
+                    for h in stays:
+                        extra = f" · ⭐ {h['stars']}" if h["stars"] else ""
+                        line = f"**{h['name']}** · {h['type']} · {h['km']} km away{extra}"
+                        if h["phone"]:
+                            line += f" · 📞 {h['phone']}"
+                        st.markdown(line + f" · [Map]({h['maps']})")
+                    st.caption("Suggestions from OpenStreetMap. Check prices, reviews "
+                               "and availability before booking.")
+                else:
+                    st.write("I couldn't load nearby stays right now.")
+                st.link_button("🔎 See more hotels nearby", hotel_search_link(night["name"]))
 
     st.caption(
         f"Return journey to {info['start_city']}: about {result['return_km']} km "
