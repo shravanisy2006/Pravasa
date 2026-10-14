@@ -11,7 +11,9 @@ from extras import hotel_search_link, hotels_near, nearby_places, transport_opti
 from places import get_place_info, get_road_route, google_maps_day_link, google_maps_link
 from planner import START_CITIES, STAY_STYLES, TRANSPORT, plan_trip
 from trip_map import add_real_roads, build_trip_map
+from report import build_pdf
 from voice import plan_script, speak
+from weather import HELPLINES, season_notes, trip_weather, weather_text
 
 st.set_page_config(page_title="Pravasa - Karnataka Travel Planner", page_icon="🧭")
 
@@ -131,7 +133,8 @@ if clicked or st.session_state.pop("plan_now", False):
                             month, s.transport, s.stay_style)
     s["result_info"] = {"days": s.days, "start_city": s.start_city,
                         "budget": s.budget, "language": s.language,
-                        "transport": s.transport, "stay_style": s.stay_style}
+                        "transport": s.transport, "stay_style": s.stay_style,
+                        "month": month}
     s["story"] = None  # write a fresh story for this new plan
 
 # ---------- Show the plan ----------
@@ -158,12 +161,25 @@ if "result" in st.session_state:
     else:
         st.success(f"Within budget, with about ₹{info['budget'] - costs['Total']:,} to spare.")
 
+    # Season tips for the whole trip (region-wide advice, shown once)
+    month = info["month"]
+    trip_tips = []
+    for d in result["days"]:
+        for stp in d["stops"]:
+            for kind, msg in season_notes(stp["place"], month):
+                if not msg.startswith("Not the ideal") and kind != "good" and msg not in trip_tips:
+                    trip_tips.append(msg)
+    if trip_tips:
+        with st.expander(f"⚠️ Travelling in {MONTHS[month - 1]}: things to know", expanded=True):
+            for msg in trip_tips:
+                st.markdown(f"- {msg}")
+
     # The story and Listen button go here, but are filled in LAST,
     # so the map and day plans appear without waiting for the AI
     story_box = st.container()
 
     # Fetch photos/history and hotels for every stop at the same time
-    with st.spinner("Loading photos and places to stay..."):
+    with st.spinner("Loading photos, weather and places to stay..."):
         stops = [s["place"] for d in result["days"] for s in d["stops"]]
         nights = [d["stops"][-1]["place"] for d in result["days"][:-1] if d["stops"]]
         with ThreadPoolExecutor(max_workers=10) as pool:
@@ -171,8 +187,14 @@ if "result" in st.session_state:
                          for p in stops}
             hotel_jobs = {p["id"]: pool.submit(hotels_near, p["lat"], p["lon"],
                                                info["stay_style"]) for p in nights}
+            # Weather at the last stop of each day (where you'll be that evening)
+            day_spots = tuple(
+                (d["stops"][-1]["place"]["lat"], d["stops"][-1]["place"]["lon"])
+                if d["stops"] else d["start_point"] for d in result["days"])
+            weather_job = pool.submit(trip_weather, day_spots, month)
             wiki_info = {k: f.result() for k, f in wiki_jobs.items()}
             hotel_info = {k: f.result() for k, f in hotel_jobs.items()}
+            weather = weather_job.result()
 
     # Route map for the whole trip
     st.subheader("🗺️ Your route")
@@ -184,8 +206,11 @@ if "result" in st.session_state:
     planned_ids = {s["place"]["id"] for d in result["days"] for s in d["stops"]}
     last_day = result["days"][-1]["day"]
     tabs = st.tabs([f"Day {d['day']}" for d in result["days"]])
-    for tab, day in zip(tabs, result["days"]):
+    for i, (tab, day) in enumerate(zip(tabs, result["days"])):
         with tab:
+            day_weather = weather[i] if weather and i < len(weather) else None
+            if day_weather:
+                st.info(weather_text(day_weather))
             if not day["stops"]:
                 st.info("A free day to relax, shop or revisit a favourite spot.")
                 continue
@@ -224,6 +249,11 @@ if "result" in st.session_state:
                     f"🎟️ Entry: {fee_text} · 🕘 {place['timings']}"
                 )
                 st.write(f"🍛 Try: {place['local_food']}")
+                for kind, msg in season_notes(place, month):
+                    if kind == "good":
+                        st.success(msg)
+                    elif msg.startswith("Not the ideal"):
+                        st.warning(msg)
 
                 with st.expander("🚌 Ways to get here"):
                     options = transport_options(stop["travel_km"], place, info["transport"])
@@ -271,6 +301,16 @@ if "result" in st.session_state:
     breakdown = {k: v for k, v in costs.items() if k != "Total"}
     st.bar_chart(pd.Series(breakdown, name="₹"))
 
+    # Emergency numbers
+    with st.expander("🆘 Emergency & helpline numbers"):
+        for label, number in HELPLINES:
+            st.markdown(f"{label}: **{number}**")
+
+    # Download the whole itinerary as a PDF (built only when clicked)
+    night_hotels = {d["day"]: hotel_info.get(d["stops"][-1]["place"]["id"])
+                    for d in result["days"] if d["stops"]}
+    download_box = st.container()  # filled at the end, once the story is ready
+
     with story_box:
         speech_lang = "kn" if info["language"] == "ಕನ್ನಡ" else "en"
         if ai_available():
@@ -295,6 +335,16 @@ if "result" in st.session_state:
                 st.audio(audio, format="audio/mp3", autoplay=True)
             else:
                 st.error("Couldn't create the audio right now. Check your internet connection.")
+
+    with download_box:
+        story_now = st.session_state.get("story")
+        st.download_button(
+            "📄 Download itinerary (PDF)",
+            data=lambda: build_pdf(result, info, story_now, weather, night_hotels),
+            file_name=f"pravasa-{info['days']}-day-trip.pdf",
+            mime="application/pdf",
+            type="primary",
+        )
 
 # ---------- All destinations ----------
 with st.expander("See all destinations on a map"):

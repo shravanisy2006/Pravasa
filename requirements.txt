@@ -5,3 +5,5 @@ python-dotenv
 requests
 folium
 gTTS
+fpdf2
+uharfbuzz
