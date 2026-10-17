@@ -40,7 +40,7 @@ def _setup():
 def _heading(pdf, text, size=13):
     pdf.ln(2)
     pdf.set_font("Noto", "B", size)
-    pdf.set_text_color(20, 60, 120)
+    pdf.set_text_color(200, 16, 46)   # Kannada red
     pdf.multi_cell(0, 7, text, new_x="LMARGIN", new_y="NEXT")
     pdf.set_text_color(0)
 
@@ -56,8 +56,18 @@ def build_pdf(result, info, story=None, weather=None, hotels=None):
     pdf.add_page()
     costs = result["costs"]
 
+    logo = Path(__file__).parent / "static" / "logo.png"
+    if logo.exists():
+        pdf.image(str(logo), x=pdf.w - 15 - 24, y=12, w=24)
     pdf.set_font("Noto", "B", 20)
     pdf.cell(0, 10, "Pravasa · ಪ್ರವಾಸ", new_x="LMARGIN", new_y="NEXT")
+    # Kannada flag band: yellow over red
+    y = pdf.get_y() + 1
+    pdf.set_fill_color(255, 199, 44)
+    pdf.rect(15, y, pdf.w - 30 - 30, 1.6, style="F")
+    pdf.set_fill_color(200, 16, 46)
+    pdf.rect(15, y + 1.6, pdf.w - 30 - 30, 1.6, style="F")
+    pdf.ln(5)
     _para(pdf, f"Your {info['days']}-day Karnataka trip from {info['start_city']}", 12, bold=True)
     _para(pdf, f"Estimated cost: ₹{costs['Total']:,}  ·  Budget: ₹{info['budget']:,}  ·  "
                f"Distance: {result['total_km']:,} km  ·  Travel: {info['transport']}  ·  "

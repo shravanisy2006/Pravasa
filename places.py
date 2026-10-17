@@ -8,11 +8,15 @@ Pravasa place helpers: photos, history, real road routes and map links.
   directions. They're just web addresses, so they need no API key, and on a
   phone they open turn-by-turn navigation.
 
+- get_gallery(): several photos of each place from Wikimedia Commons.
+- get_traveller_notes(): what travellers say, from Wikivoyage (written by travellers).
+
 Results are remembered (lru_cache), so the same lookup is never made twice.
 Every function fails safely: if the internet or a service is down, it
 returns None and the app shows the rest of the plan anyway.
 """
 
+import re
 from functools import lru_cache
 
 import requests
@@ -97,6 +101,114 @@ def _fetch_road_route(points):
         # GeoJSON gives [lon, lat]; maps want (lat, lon)
         "path": [(lat, lon) for lon, lat in route["geometry"]["coordinates"]],
     }
+
+
+# ---------- Photo gallery (Wikimedia Commons) ----------
+
+def get_gallery(name, district, limit=6):
+    """Up to `limit` photos of a place: [{'url', 'credit', 'page'}], or []."""
+    try:
+        return _fetch_gallery(name, district, limit)
+    except Exception as e:
+        print("Gallery error:", e)
+        return []
+
+
+@lru_cache(maxsize=512)
+def _fetch_gallery(name, district, limit):
+    params = {
+        "action": "query", "format": "json",
+        "generator": "search",
+        "gsrnamespace": 6,                    # 6 = files (photos)
+        "gsrsearch": f"{name} {district} Karnataka filetype:bitmap",
+        "gsrlimit": limit * 2,                # ask for extra, some get filtered out
+        "prop": "imageinfo",
+        "iiprop": "url|extmetadata",
+        "iiurlwidth": 900,                    # a 900-pixel-wide copy
+    }
+    r = requests.get("https://commons.wikimedia.org/w/api.php",
+                     params=params, headers=HEADERS, timeout=8)
+    r.raise_for_status()
+    pages = sorted(r.json().get("query", {}).get("pages", {}).values(),
+                   key=lambda pg: pg.get("index", 99))  # best matches first
+    photos = []
+    for pg in pages:
+        title = pg.get("title", "").lower()
+        if not title.endswith((".jpg", ".jpeg", ".png")):
+            continue
+        info = (pg.get("imageinfo") or [{}])[0]
+        meta = info.get("extmetadata", {})
+        artist = re.sub(r"<[^>]+>", "", meta.get("Artist", {}).get("value", "")).strip()
+        licence = meta.get("LicenseShortName", {}).get("value", "")
+        if not info.get("thumburl"):
+            continue
+        photos.append({
+            "url": info["thumburl"],
+            "page": info.get("descriptionurl", ""),
+            "credit": ", ".join(x for x in (artist[:60], licence) if x),
+        })
+        if len(photos) >= limit:
+            break
+    return photos
+
+
+# ---------- What travellers say (Wikivoyage, the free traveller-written guide) ----------
+
+def get_traveller_notes(name, district):
+    """A short traveller-written summary {'title', 'text', 'url'} from Wikivoyage, or None."""
+    try:
+        return _fetch_traveller_notes(name, district)
+    except Exception as e:
+        print("Wikivoyage error:", e)
+        return None
+
+
+@lru_cache(maxsize=512)
+def _fetch_traveller_notes(name, district):
+    params = {
+        "action": "query", "format": "json",
+        "generator": "search", "gsrsearch": f"{name} {district}", "gsrlimit": 1,
+        "prop": "extracts|info", "exintro": 1, "explaintext": 1, "exsentences": 3,
+        "inprop": "url", "redirects": 1,
+    }
+    r = requests.get("https://en.wikivoyage.org/w/api.php",
+                     params=params, headers=HEADERS, timeout=6)
+    r.raise_for_status()
+    pages = r.json().get("query", {}).get("pages", {})
+    if not pages:
+        return None
+    page = next(iter(pages.values()))
+    text = (page.get("extract") or "").strip()
+    if not text:
+        return None
+    return {"title": page.get("title"), "text": text, "url": page.get("fullurl")}
+
+
+def google_reviews_link(name):
+    """Opens the place on Google Maps, where its visitor reviews are."""
+    from urllib.parse import quote
+    return f"https://www.google.com/maps/search/?api=1&query={quote(name + ', Karnataka')}"
+
+
+def get_hero_photo():
+    """A large photo for the top of the page (Hampi's lead Wikipedia image)."""
+    try:
+        return _fetch_hero_photo()
+    except Exception as e:
+        print("Hero photo error:", e)
+        return None
+
+
+@lru_cache(maxsize=1)
+def _fetch_hero_photo():
+    params = {"action": "query", "format": "json", "titles": "Hampi",
+              "prop": "pageimages", "piprop": "thumbnail", "pithumbsize": 1800,
+              "redirects": 1}
+    r = requests.get("https://en.wikipedia.org/w/api.php",
+                     params=params, headers=HEADERS, timeout=6)
+    r.raise_for_status()
+    page = next(iter(r.json()["query"]["pages"].values()))
+    return page.get("thumbnail", {}).get("source")
 
 
 def google_maps_link(lat, lon):

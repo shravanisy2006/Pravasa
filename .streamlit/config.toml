@@ -1,0 +1,39 @@
+# Pravasa look and feel
+[server]
+enableStaticServing = true      # serves the fonts in the static/ folder
+
+[client]
+toolbarMode = "minimal"         # hides developer menus for visitors
+
+[theme]
+base = "light"
+primaryColor = "#C8102E"             # Kannada flag red
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F2EE"
+textColor = "#24201E"
+linkColor = "#A30D25"
+borderColor = "#E9E5DF"
+baseRadius = "10px"
+font = "Noto Sans, Noto Sans Kannada, sans-serif"
+# Headings use Baloo Tamma 2, loaded in ui.py
+chartCategoricalColors = ["#C8102E", "#FFC72C", "#24201E", "#6E6862"]
+
+[[theme.fontFaces]]
+family = "Noto Sans"
+url = "app/static/NotoSans-Regular.woff2"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Noto Sans"
+url = "app/static/NotoSans-Bold.woff2"
+weight = 700
+
+[[theme.fontFaces]]
+family = "Noto Sans Kannada"
+url = "app/static/NotoSansKannada-Regular.woff2"
+weight = 400
+
+[[theme.fontFaces]]
+family = "Noto Sans Kannada"
+url = "app/static/NotoSansKannada-Bold.woff2"
+weight = 700

@@ -53,10 +53,22 @@ SETTINGS_INSTRUCTIONS = (
 _CLIENT = None
 
 
+def _api_key():
+    """Find the Gemini key: .env on your laptop, or Secrets on Streamlit Cloud."""
+    key = os.getenv("GEMINI_API_KEY")
+    if key:
+        return key
+    try:
+        import streamlit as st
+        return st.secrets.get("GEMINI_API_KEY")
+    except Exception:  # no secrets file on this computer
+        return None
+
+
 def _client():
     """Create the Gemini client once and reuse it (or None if no API key)."""
     global _CLIENT
-    key = os.getenv("GEMINI_API_KEY")
+    key = _api_key()
     if not key:
         return None
     if _CLIENT is None:
@@ -66,7 +78,7 @@ def _client():
 
 
 def ai_available():
-    return bool(os.getenv("GEMINI_API_KEY"))
+    return bool(_api_key())
 
 
 def _ask(system_instruction, prompt):
