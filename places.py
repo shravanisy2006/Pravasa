@@ -10,6 +10,7 @@ Pravasa place helpers: photos, history, real road routes and map links.
 
 - get_gallery(): several photos of each place from Wikimedia Commons.
 - get_traveller_notes(): what travellers say, from Wikivoyage (written by travellers).
+- get_place_info_kn(): the same history in Kannada, from Kannada Wikipedia.
 
 Results are remembered (lru_cache), so the same lookup is never made twice.
 Every function fails safely: if the internet or a service is down, it
@@ -182,6 +183,43 @@ def _fetch_traveller_notes(name, district):
     if not text:
         return None
     return {"title": page.get("title"), "text": text, "url": page.get("fullurl")}
+
+
+# ---------- History in Kannada (Kannada Wikipedia, when a page exists) ----------
+
+def get_place_info_kn(english_title):
+    """The Kannada Wikipedia summary for an English Wikipedia page, or None."""
+    if not english_title:
+        return None
+    try:
+        return _fetch_place_info_kn(english_title)
+    except Exception as e:
+        print("Kannada Wikipedia error:", e)
+        return None
+
+
+@lru_cache(maxsize=512)
+def _fetch_place_info_kn(english_title):
+    # 1. Find the Kannada page linked from the English one
+    r = requests.get("https://en.wikipedia.org/w/api.php", headers=HEADERS, timeout=6, params={
+        "action": "query", "format": "json", "titles": english_title,
+        "prop": "langlinks", "lllang": "kn", "redirects": 1})
+    r.raise_for_status()
+    page = next(iter(r.json().get("query", {}).get("pages", {}).values()), {})
+    links = page.get("langlinks") or []
+    if not links:
+        return None
+    kn_title = links[0].get("*")
+    # 2. Read the start of that Kannada page
+    r = requests.get("https://kn.wikipedia.org/w/api.php", headers=HEADERS, timeout=6, params={
+        "action": "query", "format": "json", "titles": kn_title, "prop": "extracts|info",
+        "exintro": 1, "explaintext": 1, "exsentences": 4, "inprop": "url", "redirects": 1})
+    r.raise_for_status()
+    page = next(iter(r.json().get("query", {}).get("pages", {}).values()), {})
+    text = (page.get("extract") or "").strip()
+    if not text:
+        return None
+    return {"title": kn_title, "summary": text, "url": page.get("fullurl")}
 
 
 def google_reviews_link(name):

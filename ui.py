@@ -13,6 +13,9 @@ and it matches the Pravasa logo.
 
 import html
 
+from i18n import (HELPLINE_KN, SEASON_ROWS, WORDS_KN, is_kn, lang, month_short, pf,
+                  t, w)
+
 STYLE = """
 <style>
 @font-face {
@@ -36,10 +39,9 @@ STYLE = """
 }
 
 /* Page frame */
-header[data-testid="stHeader"] { background: transparent; }
 [data-testid="stMain"] { overflow-x: hidden; }
 [data-testid="stMainBlockContainer"] {
-  padding-top: 0; padding-bottom: 4rem; max-width: 1120px;
+  padding-top: 3.75rem; padding-bottom: 4rem; max-width: 1120px;
 }
 
 /* ---------- Hero: a light photograph of Karnataka behind everything ---------- */
@@ -254,7 +256,7 @@ header[data-testid="stHeader"] { background: transparent; }
 }
 
 /* Emergency numbers */
-.pv-help { list-style: none; margin: 0; padding: 0; }
+.pv-help { list-style: none; margin: 0 !important; padding: 0 !important; }
 .pv-help li {
   display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
   padding: .55rem 0; border-bottom: 1px solid var(--pv-line);
@@ -271,6 +273,133 @@ header[data-testid="stHeader"] { background: transparent; }
   color: var(--pv-muted); font-size: .85rem;
 }
 
+
+/* ---------- Top menu bar ---------- */
+header[data-testid="stHeader"] {
+  background: rgba(255,255,255,.96); border-bottom: 1px solid var(--pv-line);
+  backdrop-filter: blur(6px);
+}
+[data-testid="stHeader"] img[data-testid="stHeaderLogo"], [data-testid="stLogo"] { height: 2.6rem; }
+[data-testid="stTopNavLink"] p, [data-testid="stNavSectionHeader"] p,
+header [data-testid="stPageLink-NavLink"] p { font-weight: 600; }
+[data-testid="stTopNavLink"][aria-current="page"], header a[aria-current="page"] {
+  box-shadow: inset 0 -3px 0 var(--pv-red);
+}
+
+/* ---------- Page banner (every page except Home) ---------- */
+.st-key-banner {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.86) 55%,
+                    rgba(255,255,255,.55) 100%),
+    var(--pv-hero-photo, linear-gradient(120deg, #FFF4D1, #FFFFFF)) center 40% / cover no-repeat;
+  width: 100vw !important; max-width: 100vw !important;
+  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  padding: 2.25rem max(1rem, calc(50vw - 560px)) 2rem;
+  box-sizing: border-box;
+}
+.pv-banner-title {
+  font-family: var(--pv-display) !important; font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.2rem) !important; line-height: 1.1;
+  color: var(--pv-ink) !important; margin: 0 0 .35rem;
+}
+.pv-banner-sub { font-size: 1.1rem !important; color: var(--pv-ink) !important; margin: 0; max-width: 42rem; }
+
+/* ---------- Theme tiles on Home ---------- */
+[class*="st-key-tile_"] {
+  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 20px;
+  overflow: hidden; padding: 0 0 .6rem;
+}
+[class*="st-key-tile_"] [data-testid="stPageLink"] { padding: 0 1rem; }
+.pv-tile-img {
+  aspect-ratio: 16 / 10; background-size: cover; background-position: center;
+  background-color: var(--pv-yellow-soft); position: relative;
+}
+.pv-tile-img::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background: linear-gradient(90deg, var(--pv-yellow) 50%, var(--pv-red) 50%);
+}
+.pv-tile-body { padding: .8rem 1rem 0; }
+.pv-tile-name {
+  font-family: var(--pv-display) !important; font-weight: 800; font-size: 1.45rem !important;
+  margin: 0; color: var(--pv-ink); line-height: 1.1;
+}
+.pv-tile-kn {
+  font-family: var(--pv-display) !important; font-weight: 600; font-size: 1.05rem !important;
+  color: var(--pv-red); margin: 0;
+}
+
+/* ---------- How it works ---------- */
+.pv-steps { list-style: none; margin: .5rem 0 0 !important; padding: 0 !important; display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; counter-reset: step; }
+.pv-steps li { counter-increment: step; padding: 1.1rem 1.2rem; border-radius: 18px;
+  background: #FAF8F5; border: 1px solid var(--pv-line); }
+.pv-steps li::before {
+  content: counter(step); display: grid; place-items: center; width: 2.2rem; height: 2.2rem;
+  border-radius: 50%; background: var(--pv-red); color: #FFFFFF; margin-bottom: .6rem;
+  font-family: var(--pv-display); font-weight: 800; font-size: 1.15rem;
+}
+.pv-steps b { display: block; font-family: var(--pv-display); font-size: 1.2rem; margin-bottom: .2rem; }
+.pv-steps span { color: var(--pv-muted); font-size: .95rem; line-height: 1.55; }
+
+/* ---------- Explore cards ---------- */
+[class*="st-key-card_"] {
+  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 20px;
+  overflow: hidden; padding: 0 1rem 1rem; height: 100%;
+}
+.pv-card-img {
+  aspect-ratio: 4 / 3; margin: 0 -1rem .8rem; background-size: cover; background-position: center;
+  background-color: var(--pv-yellow-soft);
+}
+.pv-card-img.none {
+  display: grid; place-items: center; color: var(--pv-muted); font-size: .9rem;
+  background: linear-gradient(var(--pv-yellow-soft) 50%, var(--pv-red-soft) 50%);
+}
+.pv-card-name {
+  font-family: var(--pv-display) !important; font-weight: 800; font-size: 1.3rem !important;
+  margin: 0; color: var(--pv-ink); line-height: 1.15;
+}
+.pv-card-kn {
+  font-family: var(--pv-display) !important; font-weight: 600; font-size: 1rem !important;
+  color: var(--pv-red); margin: 0 0 .35rem;
+}
+.pv-card-meta { color: var(--pv-muted); font-size: .85rem; margin: 0 0 .5rem; }
+.pv-card-text { font-size: .93rem; line-height: 1.55; margin: 0 0 .6rem; }
+.pv-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 .7rem; }
+.pv-chip { font-size: .78rem; padding: .1rem .6rem; border-radius: 999px;
+  background: var(--pv-yellow-soft); color: var(--pv-ink); }
+
+/* ---------- Panels on Plan / My trip / Help ---------- */
+.st-key-planform, .st-key-empty, .st-key-helpbox, .st-key-filters,
+.st-key-seasonbox, .st-key-aboutbox, .st-key-sourcebox {
+  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 20px;
+  padding: 1.4rem 1.5rem; margin-top: 1.25rem;
+  box-shadow: 0 6px 18px rgba(60, 30, 10, .05);
+}
+
+/* Season guide */
+.pv-season { width: 100%; border-collapse: collapse; font-size: .93rem; }
+.pv-season th { text-align: left; font-weight: 700; padding: .5rem .5rem; border-bottom: 2px solid var(--pv-red); }
+.pv-season td { padding: .55rem .5rem; border-bottom: 1px solid var(--pv-line); vertical-align: top; }
+.pv-season td:first-child { font-weight: 700; }
+.pv-good { background: var(--pv-yellow-soft); }
+
+
+/* ---------- Light photo behind a section ---------- */
+[class*="st-key-photo_"] {
+  background:
+    linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.92)),
+    var(--pv-sec-photo, linear-gradient(#FFFFFF, #FFFFFF)) center / cover no-repeat;
+  width: 100vw !important; max-width: 100vw !important;
+  margin: 2rem calc(50% - 50vw) 0; box-sizing: border-box;
+  padding: 1rem max(1rem, calc(50vw - 560px)) 2.5rem;
+  border-top: 1px solid var(--pv-line); border-bottom: 1px solid var(--pv-line);
+}
+[class*="st-key-photo_"] .pv-h2 { margin-top: 1.25rem; }
+
+/* ---------- ಕನ್ನಡ / English switch ---------- */
+.st-key-langbar { align-items: flex-end; }
+.st-key-langbar [data-testid="stButtonGroup"] { justify-content: flex-end; }
+
 @media (prefers-reduced-motion: reduce) { .pvg-track { transition: none; } }
 @media (max-width: 640px) {
   .st-key-hero {
@@ -283,6 +412,8 @@ header[data-testid="stHeader"] { background: transparent; }
   .pv-stat { border-left: none; padding-left: 0; border-top: 1px solid var(--pv-line); }
   .pv-stat:first-child { border-top: none; }
   .pv-h2 { font-size: 1.7rem; }
+  .pv-steps { grid-template-columns: 1fr; }
+  .st-key-banner { padding: 1.5rem 1rem; }
 }
 </style>
 """
@@ -297,17 +428,23 @@ def hero_photo_style(photo_url):
     return f"<style>:root {{ --pv-hero-photo: url('{e(photo_url)}'); }}</style>"
 
 
+def section_photo_style(key, photo_url):
+    """A light photo behind one section (the container with this key)."""
+    if not photo_url:
+        return ""
+    return f"<style>.st-key-{key} {{ --pv-sec-photo: url('{e(photo_url)}'); }}</style>"
+
+
 def hero_intro(place_count):
     return f"""
 <div class="pv-brandrow"><img src="app/static/logo.png" alt="Pravasa logo">
-<p class="pv-brand">Pravasa</p></div>
+<p class="pv-brand">{"ಪ್ರವಾಸ" if is_kn() else "Pravasa"}</p></div>
 <h1 class="pv-word">ಪ್ರವಾಸ</h1>
-<p class="pv-lede">Say where you'd like to go, in ಕನ್ನಡ or English. Pravasa plans the days,
-the roads and the stays across Karnataka.</p>
+<p class="pv-lede">{e(t("lede"))}</p>
 <ul class="pv-points">
-  <li>{place_count} hand-checked places, from Hampi to the coast</li>
-  <li>Real road distances, weather and season advice</li>
-  <li>Speaks and listens in Kannada</li>
+  <li>{e(t("point1", n=place_count))}</li>
+  <li>{e(t("point2"))}</li>
+  <li>{e(t("point3"))}</li>
 </ul>
 """
 
@@ -323,48 +460,66 @@ def section_title(title, sub=None):
     return out
 
 
+def banner(title, sub=None):
+    out = f'<p class="pv-banner-title">{e(title)}</p>'
+    if sub:
+        out += f'<p class="pv-banner-sub">{e(sub)}</p>'
+    return out
+
+
 def stats_strip(cost, budget, km):
     diff = budget - cost
-    status = (f'<span class="pv-budget-ok">₹{diff:,} under budget</span>' if diff >= 0
-              else f'<span class="pv-budget-over">₹{-diff:,} over budget</span>')
+    status = (f'<span class="pv-budget-ok">{e(t("under", x=f"{diff:,}"))}</span>' if diff >= 0
+              else f'<span class="pv-budget-over">{e(t("over", x=f"{-diff:,}"))}</span>')
+    unit = "ಕಿ.ಮೀ" if is_kn() else "km"
     return f"""
 <div class="pv-stats">
   <div class="pv-stat"><div class="pv-stat-num">₹{cost:,}</div>
-    <div class="pv-stat-label">Estimated total</div></div>
+    <div class="pv-stat-label">{e(t("est_total"))}</div></div>
   <div class="pv-stat"><div class="pv-stat-num">₹{budget:,}</div>
-    <div class="pv-stat-label">Your budget, {status}</div></div>
-  <div class="pv-stat"><div class="pv-stat-num">{km:,} km</div>
-    <div class="pv-stat-label">Total driving, including the way home</div></div>
+    <div class="pv-stat-label">{e(t("your_budget"))}, {status}</div></div>
+  <div class="pv-stat"><div class="pv-stat-num">{km:,} {unit}</div>
+    <div class="pv-stat-label">{e(t("total_drive"))}</div></div>
 </div>
 """
 
 
+def _names(place):
+    """(main name, second name): Kannada first when the site is in Kannada."""
+    if is_kn():
+        return place["name_kn"], place["name"]
+    return place["name"], place["name_kn"]
+
+
 def place_header(n, place, travel_text, long_day):
     cls = "pv-travel long" if long_day else "pv-travel"
+    main, second = _names(place)
     return f"""
-<p class="pv-stop">Stop {n}</p>
-<p class="pv-place">{e(place['name'])}</p>
-<p class="pv-place-kn">{e(place['name_kn'])}<span class="pv-district">{e(place['district'])}</span></p>
+<p class="pv-stop">{e(t("stop_n", n=n))}</p>
+<p class="pv-place">{e(main)}</p>
+<p class="pv-place-kn">{e(second)}<span class="pv-district">{e(w(place['district']))}</span></p>
 <span class="{cls}">{e(travel_text)}</span>
-<p class="pv-famous">{e(place['famous_for'])}</p>
+<p class="pv-famous">{e(pf(place, 'famous_for'))}</p>
 """
 
 
-def wiki_text(summary, url):
+def wiki_text(summary, url, in_english=False):
+    note = t("english_note") if in_english else ""
     return (f'<p class="pv-wiki">{e(summary)} <a href="{e(url)}" target="_blank">'
-            f'Read more on Wikipedia</a></p>')
+            f'{e(t("read_more_wiki") + note)}</a></p>')
 
 
 def gallery(gid, photos, name):
-    """A photo carousel that works without JavaScript: arrows, swipe-free, keyboard."""
+    """A photo carousel that works without JavaScript: arrows and keyboard."""
     if not photos:
-        return f'<div class="pvg-empty">Photos of {e(name)} will appear here</div>'
+        return f'<div class="pvg-empty">{e(t("photos_soon", name=name))}</div>'
     n = len(photos)
     radios = "".join(
-        f'<input type="radio" name="{gid}" id="{gid}-{i}" aria-label="Photo {i + 1} of {n}"'
-        f'{" checked" if i == 0 else ""}>' for i in range(n))
+        f'<input type="radio" name="{gid}" id="{gid}-{i}" '
+        f'aria-label="{e(t("photo_n", i=i + 1, n=n))}"{" checked" if i == 0 else ""}>'
+        for i in range(n))
     figures = "".join(
-        f'<figure><img src="{e(p["url"])}" alt="{e(name)}, photo {i + 1}" loading="lazy">'
+        f'<figure><img src="{e(p["url"])}" alt="{e(name)}, {i + 1}" loading="lazy">'
         f'<figcaption><a href="{e(p["page"])}" target="_blank">{e(p["credit"] or "Wikimedia Commons")}'
         f'</a></figcaption></figure>' for i, p in enumerate(photos))
     steps = ""
@@ -372,9 +527,9 @@ def gallery(gid, photos, name):
         prev_cls = ' class="off"' if i == 0 else ""
         next_cls = ' class="off"' if i == n - 1 else ""
         steps += (f'<div class="pvg-step pvg-step-{i}">'
-                  f'<label for="{gid}-{max(i - 1, 0)}"{prev_cls} title="Previous photo">‹</label>'
+                  f'<label for="{gid}-{max(i - 1, 0)}"{prev_cls} title="{e(t("prev_photo"))}">‹</label>'
                   f'<span class="pvg-count">{i + 1} / {n}</span>'
-                  f'<label for="{gid}-{min(i + 1, n - 1)}"{next_cls} title="Next photo">›</label></div>')
+                  f'<label for="{gid}-{min(i + 1, n - 1)}"{next_cls} title="{e(t("next_photo"))}">›</label></div>')
     rules = "".join(
         f"#{gid}-{i}:checked ~ .pvg-view .pvg-track {{ transform: translateX(-{i * 100}%); }}"
         f"#{gid}-{i}:checked ~ .pvg-nav .pvg-step-{i} {{ display: flex; }}" for i in range(n))
@@ -384,19 +539,19 @@ def gallery(gid, photos, name):
 
 def travellers_say(notes):
     """Traveller-written notes from Wikivoyage."""
-    return (f'<div class="pv-says"><p class="pv-says-title">What travellers say</p>'
+    link = f'<a href="{e(notes["url"])}" target="_blank">{e(notes["title"])}</a>'
+    source = e(t("travellers_src", link="@@LINK@@")).replace("@@LINK@@", link)
+    return (f'<div class="pv-says"><p class="pv-says-title">{e(t("travellers_say"))}</p>'
             f'<blockquote>{e(notes["text"])}</blockquote>'
-            f'<p class="pv-says-src">From the Wikivoyage traveller guide to '
-            f'<a href="{e(notes["url"])}" target="_blank">{e(notes["title"])}</a>, '
-            f'written by travellers</p></div>')
+            f'<p class="pv-says-src">{source}</p></div>')
 
 
 def facts(place, fee_text):
     items = [
-        ("Time to spend", f"About {place['visit_hours']} hours"),
-        ("Entry", fee_text),
-        ("Open", place["timings"]),
-        ("Local food to try", place["local_food"]),
+        (t("fact_time"), t("about_hours", h=place["visit_hours"])),
+        (t("fact_entry"), fee_text),
+        (t("fact_open"), place["timings"]),
+        (t("fact_food"), pf(place, "local_food")),
     ]
     cells = "".join(f'<div class="pv-fact"><dt>{e(k)}</dt><dd>{e(str(v))}</dd></div>'
                     for k, v in items)
@@ -404,24 +559,64 @@ def facts(place, fee_text):
 
 
 def hotel_line(h):
-    bits = [e(h["type"]), f"{h['km']} km away"]
+    bits = [e(w(h["type"])), e(t("km_away", km=h["km"]))]
     if h.get("stars"):
         bits.append(f"{e(str(h['stars']))}★")
     if h.get("phone"):
         bits.append(f'<a href="tel:{e(h["phone"])}">{e(h["phone"])}</a>')
-    bits.append(f'<a href="{e(h["maps"])}" target="_blank">map</a>')
+    bits.append(f'<a href="{e(h["maps"])}" target="_blank">{e(t("map"))}</a>')
     return f'<p class="pv-hotel"><b>{e(h["name"])}</b><br>{", ".join(bits)}</p>'
 
 
 def helplines(items):
-    rows = "".join(
-        f'<li><span>{e(label.split(" ", 1)[1])}</span>'
-        f'<a href="tel:{e(number.split(" /")[0].replace("-", ""))}">{e(number)}</a></li>'
-        for label, number in items)
+    rows = ""
+    for label, number in items:
+        label = HELPLINE_KN.get(label, label) if is_kn() else label
+        rows += (f'<li><span>{e(label.split(" ", 1)[1])}</span>'
+                 f'<a href="tel:{e(number.split(" /")[0].replace("-", ""))}">{e(number)}</a></li>')
     return f'<ul class="pv-help">{rows}</ul>'
 
 
 def footer():
-    return ('<p class="pv-foot">Pravasa plans with data from OpenStreetMap, OSRM, Wikipedia '
-            'and Open-Meteo. Costs, fees and timings are estimates; please confirm '
-            'locally before you travel.</p>')
+    return f'<p class="pv-foot">{e(t("footer"))}</p>'
+
+
+def theme_tile(theme, count, image):
+    style = f' style="background-image:url(\'{e(image)}\')"' if image else ""
+    main, second = (WORDS_KN[theme], theme) if is_kn() else (theme, WORDS_KN[theme])
+    return (f'<div class="pv-tile-img"{style} role="img" aria-label="{e(theme)}"></div>'
+            f'<div class="pv-tile-body"><p class="pv-tile-name">{e(main)}</p>'
+            f'<p class="pv-tile-kn">{e(second)}</p></div>')
+
+
+def how_it_works():
+    steps = [(t("step1_t"), t("step1_d")), (t("step2_t"), t("step2_d")),
+             (t("step3_t"), t("step3_d"))]
+    items = "".join(f"<li><b>{e(a)}</b><span>{e(b)}</span></li>" for a, b in steps)
+    return f'<ol class="pv-steps">{items}</ol>'
+
+
+def place_card(place, image):
+    if image:
+        img = (f'<div class="pv-card-img" style="background-image:url(\'{e(image)}\')" '
+               f'role="img" aria-label="{e(place["name"])}"></div>')
+    else:
+        img = f'<div class="pv-card-img none">{e(t("no_photo"))}</div>'
+    main, second = _names(place)
+    months = ", ".join(month_short(m) for m in sorted(place["best_months"],
+                                                       key=lambda m: (m - 6) % 12))
+    chips = "".join(f'<span class="pv-chip">{e(w(c))}</span>' for c in place["categories"])
+    return (f'{img}<p class="pv-card-name">{e(main)}</p>'
+            f'<p class="pv-card-kn">{e(second)}</p>'
+            f'<p class="pv-card-meta">{e(t("card_meta", district=w(place["district"]), months=months))}</p>'
+            f'<div class="pv-chips">{chips}</div>'
+            f'<p class="pv-card-text">{e(pf(place, "famous_for"))}</p>')
+
+
+def season_guide():
+    rows = SEASON_ROWS[lang()]
+    body = "".join(f'<tr><td>{e(a)}</td><td class="pv-good">{e(b)}</td><td>{e(c)}</td></tr>'
+                   for a, b, c in rows)
+    return (f'<table class="pv-season"><thead><tr><th>{e(t("th_area"))}</th>'
+            f'<th>{e(t("th_best"))}</th><th>{e(t("th_mind"))}</th></tr></thead>'
+            f'<tbody>{body}</tbody></table>')

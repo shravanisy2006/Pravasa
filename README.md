@@ -30,13 +30,16 @@ The AI (Google Gemini) is used only where it's strong: understanding free-form r
 
 ## Features
 
+**Pages:** Home, Plan a trip, My trip, Explore Karnataka, and Help & safety, with a menu bar at the top.
+
 **Planning**
 - Plan from a form, a typed sentence, or your voice (Kannada or English)
 - Day-by-day itinerary that fits each day into about 9 hours of travel and sightseeing
 - Budget check with a cost breakdown for travel, stay, food and entry fees
 
 **Each place**
-- Photo and short history from Wikipedia, plus what it's famous for
+- A photo gallery from Wikimedia Commons, a short history from Wikipedia, and what it's famous for
+- What travellers say (from Wikivoyage) and a link to visitor reviews on Google Maps
 - Timings, approximate entry fee, how long to spend there, and local food to try
 - Ways to get there (cab, KSRTC bus, train, auto or walk) with time and cost, and the best option marked
 - Nearby places worth a detour
@@ -92,16 +95,24 @@ destinations.json ─────────────────► Planner
 
 | File | What it does |
 |---|---|
-| `app.py` | The Streamlit app (all screens) |
+| `app.py` | Sets up the look and the menu bar at the top |
+| `views/home.py` | Home: speak or type your trip, browse by theme |
+| `views/plan.py` | Plan a trip: choose every detail yourself |
+| `views/trip.py` | My trip: map, day-by-day plan, costs, story, PDF |
+| `views/explore.py` | Explore Karnataka: browse and filter all 55 places |
+| `views/help.py` | Help & safety: emergency numbers, season guide, about |
+| `common.py` | Shared pieces: the data, saved choices, building a plan |
+| `ui.py` | Styles and page building blocks (Kannada flag colours) |
 | `planner.py` | Picks places and fits them into days; cost estimate |
 | `destinations.json` | Dataset of 55 Karnataka destinations |
 | `ai.py` | Gemini: voice and text understanding, trip story |
 | `voice.py` | Reads the trip aloud (Kannada or English) |
-| `places.py` | Wikipedia info, road routes, Google Maps links |
+| `places.py` | Wikipedia, Wikimedia Commons and Wikivoyage info, road routes, map links |
 | `trip_map.py` | Real road distances and the route map |
 | `extras.py` | Transport options, nearby places, hotels |
 | `weather.py` | Weather, season tips, helplines |
 | `report.py` | PDF itinerary |
+| `static/` | Website fonts, logo and icon |
 | `fonts/` | Noto fonts for Kannada in the PDF (SIL Open Font License) |
 
 ## Run it on your computer

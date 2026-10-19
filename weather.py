@@ -118,23 +118,23 @@ def trip_weather(points, month):
 
 
 def weather_text(w):
-    """One friendly line describing a weather entry."""
+    """One friendly line describing a weather entry (English or Kannada)."""
+    from i18n import t, w as word
     if not w:
         return None
     if w["kind"] == "forecast":
-        rain = f", {w['rain_chance']}% chance of rain" if w["rain_chance"] is not None else ""
-        return f"{w['icon']} {w['words']}, {w['min']}–{w['max']}°C{rain} (forecast for {w['date']})"
-    return (f"{w['icon']} Usually {w['min']}–{w['max']}°C, rain on about "
-            f"{w['rainy_days']} of {w['days_in_month']} days (same month in {w['year']})")
-
-
-def _month_list(months):
-    names = [calendar.month_abbr[m] for m in months]
-    return ", ".join(names)
+        return t("wx_forecast", icon=w["icon"], words=word(w["words"]), lo=w["min"],
+                 hi=w["max"], rain=w["rain_chance"] if w["rain_chance"] is not None else "–",
+                 date=w["date"])
+    return t("wx_typical", icon=w["icon"], lo=w["min"], hi=w["max"], rainy=w["rainy_days"],
+             days=w["days_in_month"], year=w["year"])
 
 
 def season_notes(place, month):
-    """Return a list of (kind, message) tips; kind is 'good', 'warn' or 'info'."""
+    """Season tips for one place, as (kind, message).
+    kind is 'good' (great time), 'offseason' (not the best months for this place),
+    'warn' or 'info' (advice for the whole area)."""
+    from i18n import month_short, t
     notes = []
     region = place["region"]
     text = (place["name"] + " " + place["famous_for"]).lower()
@@ -142,22 +142,19 @@ def season_notes(place, month):
 
     if month in place["best_months"]:
         if "fall" in text and month in (7, 8, 9, 10):
-            notes.append(("good", "Waterfalls are at their fullest after the monsoon rains."))
+            notes.append(("good", t("sn_falls")))
     else:
-        notes.append(("warn", f"Not the ideal season here. Best months: "
-                              f"{_month_list(place['best_months'])}."))
+        months = ", ".join(month_short(m) for m in place["best_months"])
+        notes.append(("offseason", t("sn_offseason", months=months)))
 
     if monsoon and region in ("Coastal Karnataka", "Malnad", "Kodagu"):
-        notes.append(("warn", "Monsoon: very heavy rain. Ghat roads can be slippery and "
-                              "landslides happen; carry rain gear and drive in daylight."))
+        notes.append(("warn", t("sn_monsoon")))
     if monsoon and "Beaches" in place["categories"]:
-        notes.append(("warn", "The sea is rough in the monsoon. Don't swim; stay off the rocks."))
+        notes.append(("warn", t("sn_sea")))
     if month in (3, 4, 5) and region == "Hampi & North Karnataka":
-        notes.append(("warn", "Summer here is very hot (often 38°C+). Visit early morning "
-                              "or late afternoon and carry plenty of water."))
+        notes.append(("warn", t("sn_heat")))
     if monsoon and "trek" in text:
-        notes.append(("info", "Treks may be closed or leech-heavy in the monsoon; "
-                              "check with the forest office."))
+        notes.append(("info", t("sn_trek")))
     return notes
 
 

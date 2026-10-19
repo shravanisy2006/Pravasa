@@ -12,6 +12,7 @@
       "Food"
     ],
     "famous_for": "Royal palace of the Wadiyar dynasty, Indo-Saracenic architecture, lit up with nearly 100,000 bulbs on Sunday evenings and during Dasara",
+    "famous_for_kn": "ಒಡೆಯರ್ ರಾಜವಂಶದ ಅರಮನೆ, ಇಂಡೋ-ಸಾರ್ಸೆನಿಕ್ ವಾಸ್ತುಶಿಲ್ಪ; ಭಾನುವಾರ ಸಂಜೆ ಮತ್ತು ದಸರಾದಲ್ಲಿ ಸುಮಾರು 1,00,000 ದೀಪಗಳಿಂದ ಬೆಳಗುತ್ತದೆ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -24,7 +25,8 @@
     "timings": "10:00-17:30",
     "entry_fee_inr_approx": 120,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "chamundi_hills",
@@ -39,6 +41,7 @@
       "Nature"
     ],
     "famous_for": "Chamundeshwari Temple on the hilltop, giant monolithic Nandi statue, views over Mysuru city",
+    "famous_for_kn": "ಬೆಟ್ಟದ ತುದಿಯಲ್ಲಿ ಚಾಮುಂಡೇಶ್ವರಿ ದೇವಾಲಯ, ಬೃಹತ್ ಏಕಶಿಲಾ ನಂದಿ, ಮೈಸೂರು ನಗರದ ವಿಹಂಗಮ ನೋಟ",
     "visit_hours": 2,
     "best_months": [
       9,
@@ -51,7 +54,8 @@
     "timings": "07:30-21:00 (temple closes for a break in the afternoon)",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "mysuru_zoo",
@@ -65,6 +69,7 @@
       "Wildlife"
     ],
     "famous_for": "One of India's oldest zoos, started in 1892 under royal patronage",
+    "famous_for_kn": "ಭಾರತದ ಅತ್ಯಂತ ಹಳೆಯ ಮೃಗಾಲಯಗಳಲ್ಲಿ ಒಂದು, 1892ರಲ್ಲಿ ರಾಜಾಶ್ರಯದಲ್ಲಿ ಆರಂಭವಾಯಿತು",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -76,7 +81,8 @@
     "timings": "08:30-17:30 (closed Tuesdays)",
     "entry_fee_inr_approx": 120,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "brindavan_gardens",
@@ -90,6 +96,7 @@
       "Nature"
     ],
     "famous_for": "Terraced gardens below the KRS dam with an evening musical fountain show",
+    "famous_for_kn": "ಕೆ.ಆರ್.ಎಸ್ ಅಣೆಕಟ್ಟೆಯ ಕೆಳಗಿನ ಹಂತ ಹಂತದ ಉದ್ಯಾನ, ಸಂಜೆಯ ಸಂಗೀತ ಕಾರಂಜಿ ಪ್ರದರ್ಶನ",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -101,7 +108,8 @@
     "timings": "Evening visit recommended; fountain show after sunset",
     "entry_fee_inr_approx": 100,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "srirangapatna",
@@ -116,6 +124,7 @@
       "Temples"
     ],
     "famous_for": "Ranganathaswamy Temple, Tipu Sultan's island capital, Daria Daulat summer palace and Gumbaz",
+    "famous_for_kn": "ರಂಗನಾಥಸ್ವಾಮಿ ದೇವಾಲಯ, ಟಿಪ್ಪು ಸುಲ್ತಾನನ ದ್ವೀಪ ರಾಜಧಾನಿ, ದರಿಯಾ ದೌಲತ್ ಬೇಸಿಗೆ ಅರಮನೆ ಮತ್ತು ಗುಂಬಜ್",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -127,7 +136,8 @@
     "timings": "Temple 07:30-13:00 and 16:00-20:00; monuments 09:00-17:00",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Srirangapatna",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "ranganathittu",
@@ -142,6 +152,7 @@
       "Nature"
     ],
     "famous_for": "Islets on the Kaveri where painted storks, pelicans and egrets nest; boat rides past crocodiles",
+    "famous_for_kn": "ಕಾವೇರಿ ನದಿಯ ನಡುಗಡ್ಡೆಗಳಲ್ಲಿ ಬಣ್ಣದ ಕೊಕ್ಕರೆ, ಹೆಜ್ಜಾರ್ಲೆ ಮತ್ತು ಬೆಳ್ಳಕ್ಕಿಗಳ ಗೂಡು; ಮೊಸಳೆಗಳ ಪಕ್ಕ ದೋಣಿ ವಿಹಾರ",
     "visit_hours": 2,
     "best_months": [
       6,
@@ -154,7 +165,8 @@
     "timings": "08:30-18:00",
     "entry_fee_inr_approx": 150,
     "nearest_railway": "Srirangapatna",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "somnathpur",
@@ -169,6 +181,7 @@
       "Temples"
     ],
     "famous_for": "Star-shaped 13th-century Hoysala temple, part of the Hoysala UNESCO World Heritage listing",
+    "famous_for_kn": "13ನೇ ಶತಮಾನದ ನಕ್ಷತ್ರಾಕಾರದ ಹೊಯ್ಸಳ ದೇವಾಲಯ, ಹೊಯ್ಸಳ ಯುನೆಸ್ಕೋ ವಿಶ್ವ ಪರಂಪರೆಯ ಭಾಗ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -181,7 +194,8 @@
     "timings": "08:30-17:30",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "melukote",
@@ -196,6 +210,7 @@
       "Heritage"
     ],
     "famous_for": "Cheluvanarayana Swamy Temple, hilltop Yoga Narasimha Temple, linked to the saint Ramanujacharya",
+    "famous_for_kn": "ಚೆಲುವನಾರಾಯಣಸ್ವಾಮಿ ದೇವಾಲಯ, ಬೆಟ್ಟದ ಮೇಲಿನ ಯೋಗ ನರಸಿಂಹ ದೇವಾಲಯ; ಸಂತ ರಾಮಾನುಜಾಚಾರ್ಯರ ನಂಟು",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -208,7 +223,8 @@
     "timings": "07:30-13:00 and 16:00-20:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Pandavapura",
-    "local_food": "Puliyogare (tamarind rice) prasada"
+    "local_food": "Puliyogare (tamarind rice) prasada",
+    "local_food_kn": "ಪುಳಿಯೋಗರೆ ಪ್ರಸಾದ"
   },
   {
     "id": "shivanasamudra",
@@ -222,6 +238,7 @@
       "Nature"
     ],
     "famous_for": "Twin waterfalls Gaganachukki and Bharachukki on the Kaveri; site of Asia's first hydroelectric plant (1902)",
+    "famous_for_kn": "ಕಾವೇರಿಯ ಅವಳಿ ಜಲಪಾತಗಳಾದ ಗಗನಚುಕ್ಕಿ ಮತ್ತು ಭರಚುಕ್ಕಿ; ಏಷ್ಯಾದ ಮೊದಲ ಜಲವಿದ್ಯುತ್ ಕೇಂದ್ರ (1902)",
     "visit_hours": 2.5,
     "best_months": [
       7,
@@ -232,7 +249,8 @@
     "timings": "Sunrise-sunset",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Maddur",
-    "local_food": "Maddur vada"
+    "local_food": "Maddur vada",
+    "local_food_kn": "ಮದ್ದೂರು ವಡೆ"
   },
   {
     "id": "bandipur",
@@ -247,6 +265,7 @@
       "Nature"
     ],
     "famous_for": "Tiger reserve with elephants, gaur and deer; forest department safaris",
+    "famous_for_kn": "ಆನೆ, ಕಾಡೆಮ್ಮೆ ಮತ್ತು ಜಿಂಕೆಗಳಿರುವ ಹುಲಿ ಸಂರಕ್ಷಿತ ಪ್ರದೇಶ; ಅರಣ್ಯ ಇಲಾಖೆಯ ಸಫಾರಿ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -262,7 +281,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Safari tickets vary by vehicle type; check the Karnataka forest department booking site",
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "gopalaswamy_betta",
@@ -277,6 +297,7 @@
       "Nature"
     ],
     "famous_for": "Hilltop Krishna temple inside Bandipur, often wrapped in mist; forest department bus to the top",
+    "famous_for_kn": "ಬಂಡೀಪುರದೊಳಗಿನ ಬೆಟ್ಟದ ಮೇಲಿನ ಕೃಷ್ಣ ದೇವಾಲಯ, ಹೆಚ್ಚಾಗಿ ಮಂಜಿನಿಂದ ಆವೃತ; ಮೇಲಕ್ಕೆ ಅರಣ್ಯ ಇಲಾಖೆಯ ಬಸ್",
     "visit_hours": 2,
     "best_months": [
       8,
@@ -289,7 +310,8 @@
     "timings": "08:30-16:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Mysore Pak, Mysore masala dosa"
+    "local_food": "Mysore Pak, Mysore masala dosa",
+    "local_food_kn": "ಮೈಸೂರು ಪಾಕ್, ಮೈಸೂರು ಮಸಾಲೆ ದೋಸೆ"
   },
   {
     "id": "kabini",
@@ -304,6 +326,7 @@
       "Nature"
     ],
     "famous_for": "Kabini backwaters, elephant herds, tigers and leopards; jeep and boat safaris",
+    "famous_for_kn": "ಕಬಿನಿ ಹಿನ್ನೀರು, ಆನೆಗಳ ಹಿಂಡು, ಹುಲಿ ಮತ್ತು ಚಿರತೆ; ಜೀಪ್ ಮತ್ತು ದೋಣಿ ಸಫಾರಿ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -319,7 +342,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Safari tickets vary; check the Karnataka forest department booking site",
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Kodava-style pandi curry nearby"
+    "local_food": "Kodava-style pandi curry nearby",
+    "local_food_kn": "ಹತ್ತಿರದಲ್ಲಿ ಕೊಡವ ಶೈಲಿಯ ಪಂದಿ ಕರಿ"
   },
   {
     "id": "br_hills",
@@ -335,6 +359,7 @@
       "Temples"
     ],
     "famous_for": "Tiger reserve where the Western and Eastern Ghats meet, Biligiri Ranganatha temple",
+    "famous_for_kn": "ಪಶ್ಚಿಮ ಮತ್ತು ಪೂರ್ವ ಘಟ್ಟಗಳು ಸೇರುವ ಹುಲಿ ಸಂರಕ್ಷಿತ ಪ್ರದೇಶ, ಬಿಳಿಗಿರಿರಂಗನಾಥ ದೇವಾಲಯ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -348,7 +373,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Safari tickets vary; check the Karnataka forest department booking site",
     "nearest_railway": "Chamarajanagar",
-    "local_food": "Ragi mudde with saaru"
+    "local_food": "Ragi mudde with saaru",
+    "local_food_kn": "ರಾಗಿ ಮುದ್ದೆ ಮತ್ತು ಸಾರು"
   },
   {
     "id": "abbey_falls",
@@ -362,6 +388,7 @@
       "Nature"
     ],
     "famous_for": "Waterfall set among coffee and spice plantations near Madikeri",
+    "famous_for_kn": "ಮಡಿಕೇರಿ ಬಳಿ ಕಾಫಿ ಮತ್ತು ಸಾಂಬಾರ ತೋಟಗಳ ನಡುವಿನ ಜಲಪಾತ",
     "visit_hours": 1.5,
     "best_months": [
       7,
@@ -373,7 +400,8 @@
     "timings": "09:00-17:00",
     "entry_fee_inr_approx": 15,
     "nearest_railway": "Mysuru Junction (Kodagu has no railway)",
-    "local_food": "Pandi curry with kadambuttu, Coorg coffee"
+    "local_food": "Pandi curry with kadambuttu, Coorg coffee",
+    "local_food_kn": "ಪಂದಿ ಕರಿ ಮತ್ತು ಕಡಂಬುಟ್ಟು, ಕೊಡಗಿನ ಕಾಫಿ"
   },
   {
     "id": "rajas_seat",
@@ -387,6 +415,7 @@
       "Nature"
     ],
     "famous_for": "Garden viewpoint in Madikeri where Kodagu kings watched the sunset over misty valleys",
+    "famous_for_kn": "ಮಡಿಕೇರಿಯ ಉದ್ಯಾನ ವೀಕ್ಷಣಾ ತಾಣ; ಕೊಡಗಿನ ರಾಜರು ಮಂಜಿನ ಕಣಿವೆಗಳ ಮೇಲೆ ಸೂರ್ಯಾಸ್ತ ನೋಡುತ್ತಿದ್ದ ಸ್ಥಳ",
     "visit_hours": 1,
     "best_months": [
       9,
@@ -400,7 +429,8 @@
     "timings": "05:30-19:30",
     "entry_fee_inr_approx": 10,
     "nearest_railway": "Mysuru Junction (Kodagu has no railway)",
-    "local_food": "Pandi curry with kadambuttu, Coorg coffee"
+    "local_food": "Pandi curry with kadambuttu, Coorg coffee",
+    "local_food_kn": "ಪಂದಿ ಕರಿ ಮತ್ತು ಕಡಂಬುಟ್ಟು, ಕೊಡಗಿನ ಕಾಫಿ"
   },
   {
     "id": "dubare",
@@ -415,6 +445,7 @@
       "Nature"
     ],
     "famous_for": "Forest department elephant camp on the Kaveri where you can watch elephants being bathed and fed",
+    "famous_for_kn": "ಕಾವೇರಿ ದಡದ ಅರಣ್ಯ ಇಲಾಖೆಯ ಆನೆ ಶಿಬಿರ; ಆನೆಗಳಿಗೆ ಸ್ನಾನ ಮತ್ತು ಆಹಾರ ನೀಡುವುದನ್ನು ನೋಡಬಹುದು",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -428,7 +459,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Small entry and boat fee; activity charges vary",
     "nearest_railway": "Mysuru Junction (Kodagu has no railway)",
-    "local_food": "Pandi curry with kadambuttu, Coorg coffee"
+    "local_food": "Pandi curry with kadambuttu, Coorg coffee",
+    "local_food_kn": "ಪಂದಿ ಕರಿ ಮತ್ತು ಕಡಂಬುಟ್ಟು, ಕೊಡಗಿನ ಕಾಫಿ"
   },
   {
     "id": "bylakuppe",
@@ -443,6 +475,7 @@
       "Heritage"
     ],
     "famous_for": "One of the largest Tibetan Buddhist monasteries in the world, with giant golden Buddha statues",
+    "famous_for_kn": "ವಿಶ್ವದ ಅತಿ ದೊಡ್ಡ ಟಿಬೆಟನ್ ಬೌದ್ಧ ಮಠಗಳಲ್ಲಿ ಒಂದು, ಬೃಹತ್ ಚಿನ್ನದ ಬುದ್ಧ ಪ್ರತಿಮೆಗಳು",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -455,7 +488,8 @@
     "timings": "09:00-18:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mysuru Junction",
-    "local_food": "Tibetan momos and thukpa"
+    "local_food": "Tibetan momos and thukpa",
+    "local_food_kn": "ಟಿಬೆಟನ್ ಮೊಮೊ ಮತ್ತು ತುಕ್ಪಾ"
   },
   {
     "id": "talakaveri",
@@ -470,6 +504,7 @@
       "Nature"
     ],
     "famous_for": "Source of the river Kaveri, sacred temple tank on the Brahmagiri hills",
+    "famous_for_kn": "ಕಾವೇರಿ ನದಿಯ ಉಗಮಸ್ಥಾನ, ಬ್ರಹ್ಮಗಿರಿ ಬೆಟ್ಟಗಳ ಮೇಲಿನ ಪವಿತ್ರ ಕುಂಡ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -482,7 +517,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mysuru Junction (Kodagu has no railway)",
-    "local_food": "Pandi curry with kadambuttu, Coorg coffee"
+    "local_food": "Pandi curry with kadambuttu, Coorg coffee",
+    "local_food_kn": "ಪಂದಿ ಕರಿ ಮತ್ತು ಕಡಂಬುಟ್ಟು, ಕೊಡಗಿನ ಕಾಫಿ"
   },
   {
     "id": "hampi_virupaksha",
@@ -497,6 +533,7 @@
       "Temples"
     ],
     "famous_for": "Living temple at the heart of Hampi, capital of the Vijayanagara Empire and a UNESCO World Heritage Site",
+    "famous_for_kn": "ಹಂಪಿಯ ಹೃದಯಭಾಗದಲ್ಲಿರುವ ಜೀವಂತ ದೇವಾಲಯ; ವಿಜಯನಗರ ಸಾಮ್ರಾಜ್ಯದ ರಾಜಧಾನಿ, ಯುನೆಸ್ಕೋ ವಿಶ್ವ ಪರಂಪರೆಯ ತಾಣ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -508,7 +545,8 @@
     "timings": "06:00-13:00 and 17:00-21:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Hosapete Junction",
-    "local_food": "Jolada rotti (jowar roti) meals"
+    "local_food": "Jolada rotti (jowar roti) meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "hampi_vittala",
@@ -522,6 +560,7 @@
       "Heritage"
     ],
     "famous_for": "The iconic Stone Chariot and the musical pillars of the Vijayanagara era",
+    "famous_for_kn": "ಪ್ರಸಿದ್ಧ ಕಲ್ಲಿನ ರಥ ಮತ್ತು ವಿಜಯನಗರ ಕಾಲದ ಸಂಗೀತ ಕಂಬಗಳು",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -533,7 +572,8 @@
     "timings": "08:30-17:30",
     "entry_fee_inr_approx": 40,
     "nearest_railway": "Hosapete Junction",
-    "local_food": "Jolada rotti (jowar roti) meals"
+    "local_food": "Jolada rotti (jowar roti) meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "badami",
@@ -548,6 +588,7 @@
       "Temples"
     ],
     "famous_for": "Four 6th-century rock-cut cave temples of the Chalukyas, carved into red sandstone above Agastya Lake",
+    "famous_for_kn": "ಅಗಸ್ತ್ಯ ತೀರ್ಥದ ಮೇಲೆ ಕೆಂಪು ಮರಳುಗಲ್ಲಿನಲ್ಲಿ ಕೆತ್ತಿದ 6ನೇ ಶತಮಾನದ ನಾಲ್ಕು ಚಾಲುಕ್ಯ ಗುಹಾ ದೇವಾಲಯಗಳು",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -559,7 +600,8 @@
     "timings": "09:00-17:30",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Badami",
-    "local_food": "Jolada rotti (jowar roti) meals"
+    "local_food": "Jolada rotti (jowar roti) meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "pattadakal",
@@ -574,6 +616,7 @@
       "Temples"
     ],
     "famous_for": "UNESCO World Heritage group of Chalukyan temples blending North and South Indian styles",
+    "famous_for_kn": "ಉತ್ತರ ಮತ್ತು ದಕ್ಷಿಣ ಭಾರತದ ಶೈಲಿಗಳನ್ನು ಬೆರೆಸಿದ ಚಾಲುಕ್ಯ ದೇವಾಲಯಗಳ ಸಮೂಹ, ಯುನೆಸ್ಕೋ ವಿಶ್ವ ಪರಂಪರೆಯ ತಾಣ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -585,7 +628,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 40,
     "nearest_railway": "Badami",
-    "local_food": "Jolada rotti (jowar roti) meals"
+    "local_food": "Jolada rotti (jowar roti) meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "aihole",
@@ -600,6 +644,7 @@
       "Temples"
     ],
     "famous_for": "Called the cradle of Indian temple architecture, with over 100 early Chalukyan temples including the Durga Temple",
+    "famous_for_kn": "ಭಾರತೀಯ ದೇವಾಲಯ ವಾಸ್ತುಶಿಲ್ಪದ ತೊಟ್ಟಿಲು; ದುರ್ಗಾ ದೇವಾಲಯ ಸೇರಿದಂತೆ 100ಕ್ಕೂ ಹೆಚ್ಚು ಆರಂಭಿಕ ಚಾಲುಕ್ಯ ದೇವಾಲಯಗಳು",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -611,7 +656,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Badami",
-    "local_food": "Jolada rotti (jowar roti) meals"
+    "local_food": "Jolada rotti (jowar roti) meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "gol_gumbaz",
@@ -625,6 +671,7 @@
       "Heritage"
     ],
     "famous_for": "17th-century mausoleum of Mohammed Adil Shah with one of the world's largest domes and a famous whispering gallery",
+    "famous_for_kn": "ಮಹಮ್ಮದ್ ಆದಿಲ್ ಶಾಹನ 17ನೇ ಶತಮಾನದ ಸಮಾಧಿ; ವಿಶ್ವದ ಅತಿ ದೊಡ್ಡ ಗುಮ್ಮಟಗಳಲ್ಲಿ ಒಂದು ಮತ್ತು ಪಿಸುಗುಟ್ಟುವ ಗ್ಯಾಲರಿ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -636,7 +683,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Vijayapura",
-    "local_food": "Jolada rotti with ennegayi (stuffed brinjal)"
+    "local_food": "Jolada rotti with ennegayi (stuffed brinjal)",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಮತ್ತು ಎಣ್ಣೆಗಾಯಿ"
   },
   {
     "id": "bidar_fort",
@@ -650,6 +698,7 @@
       "Heritage"
     ],
     "famous_for": "15th-century Bahmani fort with Persian-style palaces, the Rangin Mahal and the Solah Khamba mosque",
+    "famous_for_kn": "15ನೇ ಶತಮಾನದ ಬಹಮನಿ ಕೋಟೆ; ಪರ್ಷಿಯನ್ ಶೈಲಿಯ ಅರಮನೆಗಳು, ರಂಗೀನ್ ಮಹಲ್ ಮತ್ತು ಸೋಲಾ ಖಂಬಾ ಮಸೀದಿ",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -661,7 +710,8 @@
     "timings": "09:00-17:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Bidar",
-    "local_food": "Jolada rotti meals"
+    "local_food": "Jolada rotti meals",
+    "local_food_kn": "ಜೋಳದ ರೊಟ್ಟಿ ಊಟ"
   },
   {
     "id": "chitradurga_fort",
@@ -676,6 +726,7 @@
       "Nature"
     ],
     "famous_for": "Seven-walled hill fort of the Nayakas and the legend of Onake Obavva, who defended it with a pestle",
+    "famous_for_kn": "ನಾಯಕರ ಏಳು ಸುತ್ತಿನ ಕೋಟೆ; ಒನಕೆಯಿಂದ ಕೋಟೆಯನ್ನು ಕಾಪಾಡಿದ ಒನಕೆ ಓಬವ್ವನ ಕಥೆ",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -687,7 +738,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "Chitradurga",
-    "local_food": "Davangere benne dose (butter dosa) nearby"
+    "local_food": "Davangere benne dose (butter dosa) nearby",
+    "local_food_kn": "ಹತ್ತಿರದಲ್ಲಿ ದಾವಣಗೆರೆ ಬೆಣ್ಣೆ ದೋಸೆ"
   },
   {
     "id": "belur",
@@ -702,6 +754,7 @@
       "Temples"
     ],
     "famous_for": "12th-century Hoysala temple with intricate soapstone carvings, part of the Hoysala UNESCO World Heritage listing",
+    "famous_for_kn": "ಸೂಕ್ಷ್ಮ ಬಳಪದ ಕಲ್ಲಿನ ಕೆತ್ತನೆಗಳ 12ನೇ ಶತಮಾನದ ಹೊಯ್ಸಳ ದೇವಾಲಯ, ಯುನೆಸ್ಕೋ ವಿಶ್ವ ಪರಂಪರೆಯ ಭಾಗ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -714,7 +767,8 @@
     "timings": "07:30-19:30",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Hassan Junction",
-    "local_food": "Malnad meals with akki rotti"
+    "local_food": "Malnad meals with akki rotti",
+    "local_food_kn": "ಅಕ್ಕಿ ರೊಟ್ಟಿಯೊಂದಿಗೆ ಮಲೆನಾಡಿನ ಊಟ"
   },
   {
     "id": "halebidu",
@@ -729,6 +783,7 @@
       "Temples"
     ],
     "famous_for": "Twin-shrined Hoysala temple at the old Hoysala capital, covered in thousands of sculptures",
+    "famous_for_kn": "ಹೊಯ್ಸಳರ ಹಳೆಯ ರಾಜಧಾನಿಯಲ್ಲಿರುವ ಅವಳಿ ಗರ್ಭಗುಡಿಯ ದೇವಾಲಯ, ಸಾವಿರಾರು ಶಿಲ್ಪಗಳಿಂದ ಅಲಂಕೃತ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -741,7 +796,8 @@
     "timings": "06:30-18:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Hassan Junction",
-    "local_food": "Malnad meals with akki rotti"
+    "local_food": "Malnad meals with akki rotti",
+    "local_food_kn": "ಅಕ್ಕಿ ರೊಟ್ಟಿಯೊಂದಿಗೆ ಮಲೆನಾಡಿನ ಊಟ"
   },
   {
     "id": "shravanabelagola",
@@ -756,6 +812,7 @@
       "Temples"
     ],
     "famous_for": "57-foot monolithic statue of Gommateshwara (Bahubali), a major Jain pilgrimage site; about 600 steps to the top",
+    "famous_for_kn": "57 ಅಡಿ ಎತ್ತರದ ಏಕಶಿಲಾ ಗೊಮ್ಮಟೇಶ್ವರ (ಬಾಹುಬಲಿ) ಪ್ರತಿಮೆ, ಪ್ರಮುಖ ಜೈನ ಯಾತ್ರಾಸ್ಥಳ; ಮೇಲಕ್ಕೆ ಸುಮಾರು 600 ಮೆಟ್ಟಿಲುಗಳು",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -767,7 +824,8 @@
     "timings": "06:30-18:30 (closed for a break in the afternoon)",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Shravanabelagola",
-    "local_food": "Simple Jain vegetarian meals"
+    "local_food": "Simple Jain vegetarian meals",
+    "local_food_kn": "ಸರಳ ಜೈನ ಸಸ್ಯಾಹಾರಿ ಊಟ"
   },
   {
     "id": "mullayanagiri",
@@ -781,6 +839,7 @@
       "Nature"
     ],
     "famous_for": "Highest peak in Karnataka (about 1,930 m), sunrise views and a small temple at the summit",
+    "famous_for_kn": "ಕರ್ನಾಟಕದ ಅತಿ ಎತ್ತರದ ಶಿಖರ (ಸುಮಾರು 1,930 ಮೀ), ಸೂರ್ಯೋದಯದ ನೋಟ ಮತ್ತು ತುದಿಯಲ್ಲಿ ಪುಟ್ಟ ದೇವಾಲಯ",
     "visit_hours": 2.5,
     "best_months": [
       9,
@@ -793,7 +852,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Chikkamagaluru",
-    "local_food": "Filter coffee from local estates, akki rotti"
+    "local_food": "Filter coffee from local estates, akki rotti",
+    "local_food_kn": "ಸ್ಥಳೀಯ ತೋಟಗಳ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಅಕ್ಕಿ ರೊಟ್ಟಿ"
   },
   {
     "id": "baba_budangiri",
@@ -808,6 +868,7 @@
       "Heritage"
     ],
     "famous_for": "Hill shrine of Baba Budan, who is credited with bringing coffee to India; grasslands and viewpoints",
+    "famous_for_kn": "ಭಾರತಕ್ಕೆ ಕಾಫಿ ತಂದವರೆಂದು ಹೇಳಲಾಗುವ ಬಾಬಾ ಬುಡನ್ ಅವರ ಬೆಟ್ಟದ ದರ್ಗಾ; ಹುಲ್ಲುಗಾವಲು ಮತ್ತು ವೀಕ್ಷಣಾ ತಾಣಗಳು",
     "visit_hours": 2,
     "best_months": [
       9,
@@ -820,7 +881,8 @@
     "timings": "Daytime",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Chikkamagaluru",
-    "local_food": "Filter coffee from local estates, akki rotti"
+    "local_food": "Filter coffee from local estates, akki rotti",
+    "local_food_kn": "ಸ್ಥಳೀಯ ತೋಟಗಳ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಅಕ್ಕಿ ರೊಟ್ಟಿ"
   },
   {
     "id": "kemmangundi",
@@ -834,6 +896,7 @@
       "Nature"
     ],
     "famous_for": "Hill station once the summer retreat of Krishnaraja Wadiyar IV, with Z Point and Hebbe Falls nearby",
+    "famous_for_kn": "ನಾಲ್ವಡಿ ಕೃಷ್ಣರಾಜ ಒಡೆಯರ ಬೇಸಿಗೆ ವಿಹಾರಧಾಮವಾಗಿದ್ದ ಗಿರಿಧಾಮ; ಹತ್ತಿರದಲ್ಲಿ ಝಡ್ ಪಾಯಿಂಟ್ ಮತ್ತು ಹೆಬ್ಬೆ ಜಲಪಾತ",
     "visit_hours": 3,
     "best_months": [
       9,
@@ -847,7 +910,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Small entry and vehicle charges",
     "nearest_railway": "Kadur Junction",
-    "local_food": "Filter coffee from local estates, akki rotti"
+    "local_food": "Filter coffee from local estates, akki rotti",
+    "local_food_kn": "ಸ್ಥಳೀಯ ತೋಟಗಳ ಫಿಲ್ಟರ್ ಕಾಫಿ, ಅಕ್ಕಿ ರೊಟ್ಟಿ"
   },
   {
     "id": "kudremukh",
@@ -862,6 +926,7 @@
       "Wildlife"
     ],
     "famous_for": "Horse-face shaped peak, rolling shola grasslands and one of Karnataka's most popular treks",
+    "famous_for_kn": "ಕುದುರೆ ಮುಖದ ಆಕಾರದ ಶಿಖರ, ಶೋಲಾ ಹುಲ್ಲುಗಾವಲು; ಕರ್ನಾಟಕದ ಜನಪ್ರಿಯ ಚಾರಣಗಳಲ್ಲಿ ಒಂದು",
     "visit_hours": 6,
     "best_months": [
       10,
@@ -874,7 +939,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Trek permit required; book through the Karnataka forest department",
     "nearest_railway": "Mangaluru Central",
-    "local_food": "Malnad meals with akki rotti"
+    "local_food": "Malnad meals with akki rotti",
+    "local_food_kn": "ಅಕ್ಕಿ ರೊಟ್ಟಿಯೊಂದಿಗೆ ಮಲೆನಾಡಿನ ಊಟ"
   },
   {
     "id": "sringeri",
@@ -889,6 +955,7 @@
       "Heritage"
     ],
     "famous_for": "First monastery established by Adi Shankaracharya, Vidyashankara Temple with zodiac pillars on the Tunga river",
+    "famous_for_kn": "ಆದಿ ಶಂಕರಾಚಾರ್ಯರು ಸ್ಥಾಪಿಸಿದ ಮೊದಲ ಮಠ; ತುಂಗಾ ತೀರದಲ್ಲಿ ರಾಶಿಚಕ್ರ ಕಂಬಗಳ ವಿದ್ಯಾಶಂಕರ ದೇವಾಲಯ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -900,7 +967,8 @@
     "timings": "06:00-14:00 and 17:00-21:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Kadur Junction",
-    "local_food": "Free temple meals (prasada bhojana)"
+    "local_food": "Free temple meals (prasada bhojana)",
+    "local_food_kn": "ದೇವಾಲಯದ ಉಚಿತ ಪ್ರಸಾದ ಭೋಜನ"
   },
   {
     "id": "jog_falls",
@@ -914,6 +982,7 @@
       "Nature"
     ],
     "famous_for": "One of India's highest plunge waterfalls, where the Sharavathi drops about 250 m in four streams",
+    "famous_for_kn": "ಭಾರತದ ಅತಿ ಎತ್ತರದ ಜಲಪಾತಗಳಲ್ಲಿ ಒಂದು; ಶರಾವತಿ ನಾಲ್ಕು ಧಾರೆಗಳಲ್ಲಿ ಸುಮಾರು 250 ಮೀ ಧುಮುಕುತ್ತದೆ (ರಾಜ, ರಾಣಿ, ರೋರರ್, ರಾಕೆಟ್)",
     "visit_hours": 2,
     "best_months": [
       7,
@@ -925,7 +994,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Small entry and parking charges",
     "nearest_railway": "Talaguppa",
-    "local_food": "Malnad meals with kadubu"
+    "local_food": "Malnad meals with kadubu",
+    "local_food_kn": "ಕಡುಬಿನೊಂದಿಗೆ ಮಲೆನಾಡಿನ ಊಟ"
   },
   {
     "id": "agumbe",
@@ -940,6 +1010,7 @@
       "Wildlife"
     ],
     "famous_for": "Rainforest village known for king cobras, monsoon rains, its sunset point and as the setting of Malgudi Days",
+    "famous_for_kn": "ಕಾಳಿಂಗ ಸರ್ಪಗಳು, ಮುಂಗಾರು ಮಳೆ, ಸೂರ್ಯಾಸ್ತ ತಾಣ ಮತ್ತು 'ಮಾಲ್ಗುಡಿ ಡೇಸ್' ಚಿತ್ರೀಕರಣಕ್ಕೆ ಹೆಸರಾದ ಮಳೆಕಾಡಿನ ಹಳ್ಳಿ",
     "visit_hours": 3,
     "best_months": [
       6,
@@ -953,7 +1024,8 @@
     "timings": "Sunset point best in the evening",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Udupi",
-    "local_food": "Malnad meals with kadubu"
+    "local_food": "Malnad meals with kadubu",
+    "local_food_kn": "ಕಡುಬಿನೊಂದಿಗೆ ಮಲೆನಾಡಿನ ಊಟ"
   },
   {
     "id": "udupi_krishna",
@@ -968,6 +1040,7 @@
       "Food"
     ],
     "famous_for": "Krishna temple founded by Madhvacharya, where the deity is viewed through a silver-plated window (Kanakana Kindi)",
+    "famous_for_kn": "ಮಧ್ವಾಚಾರ್ಯರು ಸ್ಥಾಪಿಸಿದ ಕೃಷ್ಣ ಮಠ; ಬೆಳ್ಳಿ ಹೊದಿಸಿದ ಕನಕನ ಕಿಂಡಿಯ ಮೂಲಕ ದೇವರ ದರ್ಶನ",
     "visit_hours": 1.5,
     "best_months": [
       10,
@@ -980,7 +1053,8 @@
     "timings": "05:00-21:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Udupi",
-    "local_food": "Udupi meals, masala dosa, goli bajje"
+    "local_food": "Udupi meals, masala dosa, goli bajje",
+    "local_food_kn": "ಉಡುಪಿ ಊಟ, ಮಸಾಲೆ ದೋಸೆ, ಗೋಳಿ ಬಜೆ"
   },
   {
     "id": "malpe",
@@ -995,6 +1069,7 @@
       "Nature"
     ],
     "famous_for": "Lively beach with a ferry to St. Mary's Island and its rare hexagonal basalt rock columns",
+    "famous_for_kn": "ಉತ್ಸಾಹಭರಿತ ಕಡಲತೀರ; ಅಪರೂಪದ ಷಡ್ಭುಜಾಕಾರದ ಬಸಾಲ್ಟ್ ಬಂಡೆಗಳಿರುವ ಸೇಂಟ್ ಮೇರಿಸ್ ದ್ವೀಪಕ್ಕೆ ದೋಣಿ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -1010,7 +1085,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Beach is free; island ferry is charged separately",
     "nearest_railway": "Udupi",
-    "local_food": "Coastal fish thali, kane (ladyfish) fry"
+    "local_food": "Coastal fish thali, kane (ladyfish) fry",
+    "local_food_kn": "ಕರಾವಳಿ ಮೀನಿನ ಊಟ, ಕಾಣೆ ಫ್ರೈ"
   },
   {
     "id": "kaup_beach",
@@ -1025,6 +1101,7 @@
       "Nature"
     ],
     "famous_for": "Quiet beach with a century-old lighthouse you can climb for views of the coastline",
+    "famous_for_kn": "ಶಾಂತ ಕಡಲತೀರ; ಕರಾವಳಿಯ ನೋಟಕ್ಕಾಗಿ ಹತ್ತಬಹುದಾದ ಶತಮಾನದಷ್ಟು ಹಳೆಯ ದೀಪಸ್ತಂಭ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -1038,7 +1115,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Beach is free; small lighthouse ticket",
     "nearest_railway": "Udupi",
-    "local_food": "Coastal fish thali, neer dosa"
+    "local_food": "Coastal fish thali, neer dosa",
+    "local_food_kn": "ಕರಾವಳಿ ಮೀನಿನ ಊಟ, ನೀರ್ ದೋಸೆ"
   },
   {
     "id": "kollur",
@@ -1053,6 +1131,7 @@
       "Nature"
     ],
     "famous_for": "Major Devi temple at the foot of the Kodachadri hills, associated with Adi Shankaracharya",
+    "famous_for_kn": "ಕೊಡಚಾದ್ರಿ ಬೆಟ್ಟಗಳ ತಪ್ಪಲಿನ ಪ್ರಮುಖ ದೇವಿ ದೇವಾಲಯ, ಆದಿ ಶಂಕರಾಚಾರ್ಯರೊಂದಿಗೆ ನಂಟು",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -1065,7 +1144,8 @@
     "timings": "05:00-13:30 and 15:00-21:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Byndoor Mookambika Road",
-    "local_food": "Udupi meals"
+    "local_food": "Udupi meals",
+    "local_food_kn": "ಉಡುಪಿ ಊಟ"
   },
   {
     "id": "murudeshwar",
@@ -1080,6 +1160,7 @@
       "Beaches"
     ],
     "famous_for": "Giant Shiva statue and a towering gopura on a hill surrounded by the Arabian Sea; scuba diving at Netrani Island",
+    "famous_for_kn": "ಅರಬ್ಬೀ ಸಮುದ್ರದಿಂದ ಸುತ್ತುವರಿದ ಬೆಟ್ಟದ ಮೇಲೆ ಬೃಹತ್ ಶಿವನ ಪ್ರತಿಮೆ ಮತ್ತು ಎತ್ತರದ ಗೋಪುರ; ನೇತ್ರಾಣಿ ದ್ವೀಪದಲ್ಲಿ ಸ್ಕೂಬಾ ಡೈವಿಂಗ್",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -1092,7 +1173,8 @@
     "timings": "06:00-20:30",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Murdeshwar",
-    "local_food": "Coastal fish thali, neer dosa"
+    "local_food": "Coastal fish thali, neer dosa",
+    "local_food_kn": "ಕರಾವಳಿ ಮೀನಿನ ಊಟ, ನೀರ್ ದೋಸೆ"
   },
   {
     "id": "gokarna_om_beach",
@@ -1107,6 +1189,7 @@
       "Nature"
     ],
     "famous_for": "Beach shaped like the Om symbol; a cliff trek connects it to Kudle, Half Moon and Paradise beaches",
+    "famous_for_kn": "ಓಂ ಆಕಾರದ ಕಡಲತೀರ; ಬಂಡೆಯ ಮೇಲಿನ ಚಾರಣ ದಾರಿ ಕುಡ್ಲೆ, ಹಾಫ್ ಮೂನ್ ಮತ್ತು ಪ್ಯಾರಡೈಸ್ ಕಡಲತೀರಗಳಿಗೆ ಸಂಪರ್ಕ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -1119,7 +1202,8 @@
     "timings": "Open all day; avoid swimming during monsoon",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Gokarna Road",
-    "local_food": "Seafood, beach-shack cafes"
+    "local_food": "Seafood, beach-shack cafes",
+    "local_food_kn": "ಸಮುದ್ರಾಹಾರ, ಕಡಲತೀರದ ಕೆಫೆಗಳು"
   },
   {
     "id": "gokarna_temple",
@@ -1134,6 +1218,7 @@
       "Heritage"
     ],
     "famous_for": "Ancient Shiva temple said to house the Atmalinga, a major pilgrimage site",
+    "famous_for_kn": "ಆತ್ಮಲಿಂಗವಿದೆ ಎಂದು ನಂಬಲಾದ ಪ್ರಾಚೀನ ಶಿವ ದೇವಾಲಯ, ಪ್ರಮುಖ ಯಾತ್ರಾಸ್ಥಳ",
     "visit_hours": 1,
     "best_months": [
       10,
@@ -1146,7 +1231,8 @@
     "timings": "06:00-12:30 and 17:00-20:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Gokarna Road",
-    "local_food": "Simple vegetarian meals near the temple"
+    "local_food": "Simple vegetarian meals near the temple",
+    "local_food_kn": "ದೇವಾಲಯದ ಬಳಿ ಸರಳ ಸಸ್ಯಾಹಾರಿ ಊಟ"
   },
   {
     "id": "karwar",
@@ -1161,6 +1247,7 @@
       "Nature"
     ],
     "famous_for": "Where the Kali river meets the Arabian Sea; Tagore wrote about Karwar's beauty, and Devbagh has island boat trips",
+    "famous_for_kn": "ಕಾಳಿ ನದಿ ಅರಬ್ಬೀ ಸಮುದ್ರ ಸೇರುವ ಸ್ಥಳ; ಠಾಗೋರ್ ಕಾರವಾರದ ಸೌಂದರ್ಯದ ಬಗ್ಗೆ ಬರೆದರು, ದೇವಬಾಗ್‌ನಿಂದ ದ್ವೀಪಗಳಿಗೆ ದೋಣಿ ವಿಹಾರ",
     "visit_hours": 3,
     "best_months": [
       10,
@@ -1173,7 +1260,8 @@
     "timings": "Open all day; avoid swimming during monsoon",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Karwar",
-    "local_food": "Fish curry with rice, prawn fry"
+    "local_food": "Fish curry with rice, prawn fry",
+    "local_food_kn": "ಮೀನು ಸಾರು ಅನ್ನ, ಸಿಗಡಿ ಫ್ರೈ"
   },
   {
     "id": "yana",
@@ -1188,6 +1276,7 @@
       "Temples"
     ],
     "famous_for": "Towering black karst rock formations in the forest, with a cave shrine of Bhairaveshwara",
+    "famous_for_kn": "ಕಾಡಿನ ನಡುವೆ ಎತ್ತರವಾಗಿ ನಿಂತ ಕಪ್ಪು ಸುಣ್ಣದಕಲ್ಲಿನ ಶಿಖರಗಳು, ಭೈರವೇಶ್ವರನ ಗುಹಾ ದೇವಾಲಯ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -1200,7 +1289,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Small entry and parking charges",
     "nearest_railway": "Kumta",
-    "local_food": "Coastal vegetarian meals"
+    "local_food": "Coastal vegetarian meals",
+    "local_food_kn": "ಕರಾವಳಿ ಸಸ್ಯಾಹಾರಿ ಊಟ"
   },
   {
     "id": "dandeli",
@@ -1215,6 +1305,7 @@
       "Wildlife"
     ],
     "famous_for": "White-water rafting on the Kali river, hornbills and the Dandeli-Anshi (Kali) tiger reserve",
+    "famous_for_kn": "ಕಾಳಿ ನದಿಯಲ್ಲಿ ರಿವರ್ ರಾಫ್ಟಿಂಗ್, ಹಾರ್ನ್‌ಬಿಲ್ ಹಕ್ಕಿಗಳು ಮತ್ತು ದಾಂಡೇಲಿ-ಅಣಶಿ (ಕಾಳಿ) ಹುಲಿ ಸಂರಕ್ಷಿತ ಪ್ರದೇಶ",
     "visit_hours": 5,
     "best_months": [
       10,
@@ -1230,7 +1321,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Rafting and safari charges vary by operator",
     "nearest_railway": "Alnavar Junction",
-    "local_food": "North Karnataka meals"
+    "local_food": "North Karnataka meals",
+    "local_food_kn": "ಉತ್ತರ ಕರ್ನಾಟಕದ ಊಟ"
   },
   {
     "id": "panambur",
@@ -1245,6 +1337,7 @@
       "Food"
     ],
     "famous_for": "Wide city beach with water sports, sunsets and Mangaluru's famous food just minutes away",
+    "famous_for_kn": "ಜಲಕ್ರೀಡೆ, ಸೂರ್ಯಾಸ್ತ ಮತ್ತು ಹತ್ತಿರದಲ್ಲೇ ಮಂಗಳೂರಿನ ಪ್ರಸಿದ್ಧ ತಿನಿಸುಗಳಿರುವ ವಿಶಾಲ ನಗರ ಕಡಲತೀರ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -1257,7 +1350,8 @@
     "timings": "Open all day; best in the evening",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mangaluru Central",
-    "local_food": "Kori rotti, fish curry, Mangalore buns, gadbad ice cream"
+    "local_food": "Kori rotti, fish curry, Mangalore buns, gadbad ice cream",
+    "local_food_kn": "ಕೋರಿ ರೊಟ್ಟಿ, ಮೀನು ಸಾರು, ಮಂಗಳೂರು ಬನ್ಸ್, ಗಡ್‌ಬಡ್ ಐಸ್‌ಕ್ರೀಮ್"
   },
   {
     "id": "dharmasthala",
@@ -1272,6 +1366,7 @@
       "Heritage"
     ],
     "famous_for": "Manjunatha Swamy Temple known for free meals to thousands daily, and the monolithic Bahubali statue",
+    "famous_for_kn": "ಪ್ರತಿದಿನ ಸಾವಿರಾರು ಜನರಿಗೆ ಉಚಿತ ಅನ್ನದಾನಕ್ಕೆ ಹೆಸರಾದ ಮಂಜುನಾಥಸ್ವಾಮಿ ದೇವಾಲಯ ಮತ್ತು ಏಕಶಿಲಾ ಬಾಹುಬಲಿ ಪ್ರತಿಮೆ",
     "visit_hours": 2.5,
     "best_months": [
       10,
@@ -1284,7 +1379,8 @@
     "timings": "06:30-14:30 and 17:00-20:30",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Mangaluru Central",
-    "local_food": "Free temple meals (annadana)"
+    "local_food": "Free temple meals (annadana)",
+    "local_food_kn": "ದೇವಾಲಯದ ಉಚಿತ ಅನ್ನದಾನ"
   },
   {
     "id": "kukke",
@@ -1299,6 +1395,7 @@
       "Nature"
     ],
     "famous_for": "Temple of Lord Subramanya in the Western Ghats forest, starting point for the Kumara Parvatha trek",
+    "famous_for_kn": "ಪಶ್ಚಿಮ ಘಟ್ಟದ ಕಾಡಿನಲ್ಲಿ ಸುಬ್ರಹ್ಮಣ್ಯ ಸ್ವಾಮಿ ದೇವಾಲಯ; ಕುಮಾರ ಪರ್ವತ ಚಾರಣದ ಆರಂಭ ಸ್ಥಳ",
     "visit_hours": 2,
     "best_months": [
       10,
@@ -1311,7 +1408,8 @@
     "timings": "06:00-13:30 and 15:30-20:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "Subrahmanya Road",
-    "local_food": "Free temple meals"
+    "local_food": "Free temple meals",
+    "local_food_kn": "ದೇವಾಲಯದ ಉಚಿತ ಊಟ"
   },
   {
     "id": "nandi_hills",
@@ -1326,6 +1424,7 @@
       "Heritage"
     ],
     "famous_for": "Sunrise above the clouds, Tipu's Drop cliff and the Bhoga Nandeeshwara temple at the foothills",
+    "famous_for_kn": "ಮೋಡಗಳ ಮೇಲೆ ಸೂರ್ಯೋದಯ, ಟಿಪ್ಪು ಡ್ರಾಪ್ ಬಂಡೆ ಮತ್ತು ತಪ್ಪಲಿನಲ್ಲಿ ಭೋಗ ನಂದೀಶ್ವರ ದೇವಾಲಯ",
     "visit_hours": 3,
     "best_months": [
       9,
@@ -1338,7 +1437,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 20,
     "nearest_railway": "Chikkaballapura",
-    "local_food": "Roadside roasted corn, Chikkaballapura grapes"
+    "local_food": "Roadside roasted corn, Chikkaballapura grapes",
+    "local_food_kn": "ರಸ್ತೆಬದಿಯ ಸುಟ್ಟ ಜೋಳ, ಚಿಕ್ಕಬಳ್ಳಾಪುರದ ದ್ರಾಕ್ಷಿ"
   },
   {
     "id": "lalbagh",
@@ -1353,6 +1453,7 @@
       "Heritage"
     ],
     "famous_for": "240-acre garden begun by Hyder Ali, with a glass house modelled on London's Crystal Palace and flower shows",
+    "famous_for_kn": "ಹೈದರ್ ಅಲಿ ಆರಂಭಿಸಿದ 240 ಎಕರೆ ಉದ್ಯಾನ; ಲಂಡನ್‌ನ ಕ್ರಿಸ್ಟಲ್ ಪ್ಯಾಲೇಸ್ ಮಾದರಿಯ ಗಾಜಿನ ಮನೆ ಮತ್ತು ಫಲಪುಷ್ಪ ಪ್ರದರ್ಶನ",
     "visit_hours": 2,
     "best_months": [
       1,
@@ -1364,7 +1465,8 @@
     "timings": "06:00-19:00",
     "entry_fee_inr_approx": 30,
     "nearest_railway": "KSR Bengaluru City",
-    "local_food": "Benne masala dosa, filter coffee"
+    "local_food": "Benne masala dosa, filter coffee",
+    "local_food_kn": "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ, ಫಿಲ್ಟರ್ ಕಾಫಿ"
   },
   {
     "id": "cubbon_park",
@@ -1379,6 +1481,7 @@
       "Heritage"
     ],
     "famous_for": "Green lung of Bengaluru beside the Vidhana Soudha, State Central Library and colonial-era buildings",
+    "famous_for_kn": "ವಿಧಾನಸೌಧದ ಪಕ್ಕದ ಬೆಂಗಳೂರಿನ ಹಸಿರು ಶ್ವಾಸಕೋಶ; ರಾಜ್ಯ ಕೇಂದ್ರ ಗ್ರಂಥಾಲಯ ಮತ್ತು ವಸಾಹತು ಕಾಲದ ಕಟ್ಟಡಗಳು",
     "visit_hours": 1.5,
     "best_months": [
       1,
@@ -1395,7 +1498,8 @@
     "timings": "06:00-18:00",
     "entry_fee_inr_approx": 0,
     "nearest_railway": "KSR Bengaluru City",
-    "local_food": "Benne masala dosa, filter coffee"
+    "local_food": "Benne masala dosa, filter coffee",
+    "local_food_kn": "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ, ಫಿಲ್ಟರ್ ಕಾಫಿ"
   },
   {
     "id": "bangalore_palace",
@@ -1409,6 +1513,7 @@
       "Heritage"
     ],
     "famous_for": "Tudor-style palace of the Wadiyars, inspired by Windsor Castle",
+    "famous_for_kn": "ವಿಂಡ್ಸರ್ ಕ್ಯಾಸಲ್‌ನಿಂದ ಪ್ರೇರಿತ, ಟ್ಯೂಡರ್ ಶೈಲಿಯ ಒಡೆಯರ ಅರಮನೆ",
     "visit_hours": 1.5,
     "best_months": [
       1,
@@ -1426,7 +1531,8 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Privately managed; ticket price is higher than government monuments, check before visiting",
     "nearest_railway": "KSR Bengaluru City",
-    "local_food": "Benne masala dosa, filter coffee"
+    "local_food": "Benne masala dosa, filter coffee",
+    "local_food_kn": "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ, ಫಿಲ್ಟರ್ ಕಾಫಿ"
   },
   {
     "id": "tipu_palace",
@@ -1440,6 +1546,7 @@
       "Heritage"
     ],
     "famous_for": "Teak-wood palace completed in 1791, near the old Bengaluru Fort",
+    "famous_for_kn": "ಹಳೆಯ ಬೆಂಗಳೂರು ಕೋಟೆಯ ಬಳಿ 1791ರಲ್ಲಿ ಪೂರ್ಣಗೊಂಡ ತೇಗದ ಮರದ ಅರಮನೆ",
     "visit_hours": 1,
     "best_months": [
       1,
@@ -1456,7 +1563,8 @@
     "timings": "08:30-17:30",
     "entry_fee_inr_approx": 25,
     "nearest_railway": "KSR Bengaluru City",
-    "local_food": "Benne masala dosa, filter coffee"
+    "local_food": "Benne masala dosa, filter coffee",
+    "local_food_kn": "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ, ಫಿಲ್ಟರ್ ಕಾಫಿ"
   },
   {
     "id": "bannerghatta",
@@ -1471,6 +1579,7 @@
       "Nature"
     ],
     "famous_for": "Zoo, lion and tiger safari and India's first fenced butterfly park, on the edge of Bengaluru",
+    "famous_for_kn": "ಬೆಂಗಳೂರಿನ ಅಂಚಿನಲ್ಲಿ ಮೃಗಾಲಯ, ಸಿಂಹ ಮತ್ತು ಹುಲಿ ಸಫಾರಿ ಹಾಗೂ ಭಾರತದ ಮೊದಲ ಚಿಟ್ಟೆ ಉದ್ಯಾನ",
     "visit_hours": 4,
     "best_months": [
       1,
@@ -1488,6 +1597,7 @@
     "entry_fee_inr_approx": null,
     "fee_note": "Separate tickets for zoo, safari and butterfly park",
     "nearest_railway": "KSR Bengaluru City",
-    "local_food": "Benne masala dosa, filter coffee"
+    "local_food": "Benne masala dosa, filter coffee",
+    "local_food_kn": "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ, ಫಿಲ್ಟರ್ ಕಾಫಿ"
   }
 ]
