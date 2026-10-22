@@ -204,6 +204,7 @@ STRINGS = {
                           "ಸಂಪೂರ್ಣ ಯೋಜನೆ ಒಂದೇ PDFನಲ್ಲಿ."},
     "download_pdf": {"en": "Download itinerary (PDF)", "kn": "ಯೋಜನೆ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ (PDF)"},
     "story_title": {"en": "Your trip, in short", "kn": "ನಿಮ್ಮ ಪ್ರವಾಸ, ಸಂಕ್ಷಿಪ್ತವಾಗಿ"},
+    "writing_story": {"en": "Writing your trip story...", "kn": "ನಿಮ್ಮ ಪ್ರವಾಸ ಕಥೆ ಬರೆಯಲಾಗುತ್ತಿದೆ..."},
     "story_unavailable": {"en": "The trip story isn't available right now. Your full plan is below.",
                           "kn": "ಪ್ರವಾಸ ಕಥೆ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಸಂಪೂರ್ಣ ಯೋಜನೆ ಕೆಳಗಿದೆ."},
     "listen": {"en": "Listen to your trip", "kn": "ಪ್ರವಾಸವನ್ನು ಕೇಳಿ"},

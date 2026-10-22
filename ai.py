@@ -227,5 +227,15 @@ def stream_story(result, start_city, language="en"):
         for event in stream:
             if event.event_type == "step.delta" and event.delta.type == "text":
                 yield event.delta.text
+            elif event.event_type == "error":  # e.g. the free limit was reached
+                print("Gemini story error:", event)
+                return
     except Exception as e:
         print("Gemini story error:", e)
+
+
+def write_story(result, start_city, language="en"):
+    """The same story in one go (no streaming). Used if streaming fails;
+    tries the quicker model first, then the main one."""
+    system, prompt = _story_request(result, start_city, language)
+    return _ask(system, prompt, quick=True)

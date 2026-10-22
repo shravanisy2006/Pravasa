@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import ui
-from ai import ai_available, stream_story
+from ai import ai_available, stream_story, write_story
 from common import HOME, PLAN, footer, load_destinations, loading, page_banner, photo_section
 from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from i18n import CITY_FROM_KN, is_kn, month_name, pf, t, time_text, w
@@ -219,15 +219,23 @@ night_hotels = {d["day"]: hotel_info.get(d["stops"][-1]["place"]["id"])
 with story_box:
     speech_lang = "kn" if info["language"] == "ಕನ್ನಡ" else "en"
     with st.container(key="story"):
-        if ai_available():
-            st.html(f'<p class="pv-h3" style="margin-top:0">{t("story_title")}</p>')
-            if st.session_state.get("story") is None:
-                st.session_state["story"] = st.write_stream(
-                    stream_story(result, info["start_city"], speech_lang)) or ""
-            else:
-                st.markdown(st.session_state["story"])
-            if not st.session_state["story"]:
-                st.caption(t("story_unavailable"))
+        st.html(f'<p class="pv-h3" style="margin-top:0">{t("story_title")}</p>')
+        if not (st.session_state.get("story") or "").strip():  # none yet, or a blank one
+            box = st.empty()
+            box.caption(f"✍️ {t('writing_story')}")
+            story = ""
+            if ai_available():
+                with box:  # 1. the AI story, appearing word by word
+                    story = st.write_stream(stream_story(result, info["start_city"],
+                                                         speech_lang)) or ""
+                if not story.strip():  # 2. try again without streaming
+                    story = write_story(result, info["start_city"], speech_lang) or ""
+            if not story.strip():  # 3. no AI: Pravasa's own short summary
+                story = plan_script(result, info["start_city"], speech_lang)
+            st.session_state["story"] = story
+            box.markdown(story)
+        else:
+            st.markdown(st.session_state["story"])
         if st.button(t("listen"), icon="🔊", key="listen"):
             script = st.session_state.get("story") or plan_script(
                 result, info["start_city"], speech_lang)
