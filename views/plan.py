@@ -2,9 +2,9 @@
 
 import streamlit as st
 
-from common import (INTERESTS, MONTHS, build_plan_and_open, footer, page_banner, photo_section,
-                    prefs)
-from i18n import month_name, t, w
+from common import (INTERESTS, MONTHS, build_plan_and_open, footer, load_destinations,
+                    page_banner, photo_section, prefs)
+from i18n import is_kn, month_name, t, w
 from planner import START_CITIES, STAY_STYLES, TRANSPORT
 
 page_banner(t("nav_plan"), t("plan_banner_sub"))
@@ -32,6 +32,10 @@ with photo_section("plan", "Abbey Falls", "Kodagu"), st.container(key="planform"
 
     st.pills(t("f_interests"), INTERESTS, selection_mode="multi", key="f_interests",
              format_func=w)
+    place_names = {d["id"]: d["name_kn"] if is_kn() else d["name"] for d in load_destinations()}
+    st.multiselect(t("f_must"), list(place_names), key="f_must_visit",
+                   format_func=place_names.get, placeholder=t("f_must_ph"),
+                   help=t("f_must_help"))
     st.radio(t("f_language"), ["English", "ಕನ್ನಡ"], key="f_language", horizontal=True)
 
     # Save what's on screen, so it's remembered on other pages
@@ -39,7 +43,7 @@ with photo_section("plan", "Abbey Falls", "Kodagu"), st.container(key="planform"
         p[key] = st.session_state[f"f_{key}"]
 
     if st.button(t("plan_btn"), type="primary", key="plan_from_form"):
-        if not p["interests"]:
+        if not p["interests"] and not p["must_visit"]:
             st.warning(t("pick_interest"))
         else:
             build_plan_and_open()

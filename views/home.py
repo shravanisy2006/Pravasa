@@ -38,7 +38,7 @@ with st.container(key="hero"):
                 else:
                     with loading(t("listening"), t("listening_sub")):
                         settings = understand_audio(audio_bytes, recording.type or "audio/wav")
-                    if settings and settings.get("interests"):
+                    if settings and (settings.get("interests") or settings.get("must_visit")):
                         st.session_state["heard"] = settings.get("transcript", "")
                         apply_ai_settings(settings)
                         build_plan_and_open()
@@ -65,7 +65,7 @@ with st.container(key="hero"):
                 st.session_state["heard"] = ""
                 with loading(t("reading"), t("planning_sub")):
                     settings = understand_request(request)
-                if settings and settings.get("interests"):
+                if settings and (settings.get("interests") or settings.get("must_visit")):
                     apply_ai_settings(settings)
                     build_plan_and_open()
                 elif settings:

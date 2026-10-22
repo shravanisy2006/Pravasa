@@ -39,6 +39,7 @@ def default_prefs():
         "budget": 15000,
         "stay_style": "Budget",
         "interests": [],
+        "must_visit": [],   # ids of places the traveller asked for by name
         "language": "English",
     }
 
@@ -51,9 +52,13 @@ def prefs():
 
 
 def apply_ai_settings(settings):
-    """Copy what the AI understood into the traveller's choices."""
+    """Copy what the AI understood into the traveller's choices.
+    Each request is a NEW trip: anything it doesn't mention goes back to the
+    default, so an old city or place from an earlier trip isn't carried over."""
     p = prefs()
-    for key in ("start_city", "days", "transport", "budget", "stay_style", "interests"):
+    p.update(default_prefs())
+    for key in ("start_city", "days", "transport", "budget", "stay_style", "interests",
+                "must_visit"):
         if key in settings:
             p[key] = settings[key]
     if "month" in settings:
@@ -67,10 +72,15 @@ def build_plan_and_open():
     """Plan the trip from the saved choices, then open the My trip page."""
     p = prefs()
     month = MONTHS.index(p["month_name"]) + 1
+    if not p["interests"] and p["must_visit"]:  # only places chosen: use their themes
+        themes = {c for d in load_destinations() if d["id"] in p["must_visit"]
+                  for c in d["categories"]}
+        p["interests"] = [i for i in INTERESTS if i in themes]
     st.session_state["result"] = plan_trip(load_destinations(), p["days"], p["interests"],
                                            p["start_city"], month, p["transport"],
-                                           p["stay_style"])
-    st.session_state["result_info"] = {**p, "month": month, "interests": list(p["interests"])}
+                                           p["stay_style"], p["must_visit"])
+    st.session_state["result_info"] = {**p, "month": month, "interests": list(p["interests"]),
+                                       "must_visit": list(p["must_visit"])}
     st.session_state["story"] = None  # a fresh story for the new plan
     st.switch_page(TRIP)
 

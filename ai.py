@@ -23,6 +23,8 @@ import re
 
 from dotenv import load_dotenv
 
+from planner import START_CITIES
+
 load_dotenv()  # reads GEMINI_API_KEY from the .env file on your laptop
 
 MODEL = "gemini-3.8-flash"  # change here if Google renames the model
@@ -32,8 +34,13 @@ QUICK_MODEL = "gemini-3.5-flash-lite"
 FAST = {"thinking_level": "low"}  # less "thinking" = faster answers
 _quick_ok = True  # becomes False if the quick model fails, so we stop trying it
 
+# Our places, so the AI can say which ones the traveller named ("to Hampi")
+with open("destinations.json", encoding="utf-8") as _f:
+    PLACES = {p["id"]: p for p in json.load(_f)}
+PLACE_LIST = "\n".join(f"  {pid} = {p['name']} ({p['district']})" for pid, p in PLACES.items())
+
 ALLOWED = {
-    "start_city": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi"],
+    "start_city": list(START_CITIES),
     "interests": ["Nature", "Heritage", "Temples", "Beaches", "Wildlife", "Food"],
     "transport": ["Own car / cab", "Bus (KSRTC)", "Bike"],
     "stay_style": ["Budget", "Comfort", "Premium"],
@@ -48,10 +55,21 @@ SETTINGS_INSTRUCTIONS = (
     '  "month": number 1-12 or null if not mentioned,\n'
     f'  "transport": one of {ALLOWED["transport"]},\n'
     f'  "stay_style": one of {ALLOWED["stay_style"]},\n'
-    '  "language": "kn" if the message is mainly Kannada, otherwise "en".\n'
+    '  "language": "kn" if the message is mainly Kannada, otherwise "en",\n'
+    '  "must_visit": list of place ids (from the list below) the traveller names '
+    "as somewhere they want to go, e.g. \"to Hampi\" -> both Hampi ids, "
+    "\"Coorg\" -> the Kodagu places. Empty list if they name none.\n"
     "Use null for anything not mentioned. Map ideas to the closest interest, "
     "e.g. waterfalls or hills -> Nature, forts or palaces -> Heritage, "
-    "safari -> Wildlife."
+    "safari -> Wildlife.\n"
+    "start_city is where the trip STARTS (\"from X\", \"X-ninda\"), never the "
+    "destination. Old or English names count: Hospet = Hosapete, Bangalore = "
+    "Bengaluru, Mysore = Mysuru, Mangalore = Mangaluru, Hubli = Hubballi, "
+    "Belgaum = Belagavi, Gulbarga = Kalaburagi, Bellary = Ballari, "
+    "Bijapur = Vijayapura, Shimoga = Shivamogga, Tumkur = Tumakuru, "
+    "Chikmagalur = Chikkamagaluru, Coorg = Madikeri. If the start is a town not "
+    "in the list, use the nearest city in the list.\n"
+    "Places:\n" + PLACE_LIST
 )
 
 _CLIENT = None
@@ -135,6 +153,12 @@ def _parse_settings(reply):
     interests = [i for i in (data.get("interests") or []) if i in ALLOWED["interests"]]
     if interests:
         clean["interests"] = interests
+    must = [pid for pid in (data.get("must_visit") or []) if pid in PLACES][:8]
+    if must:
+        clean["must_visit"] = must
+        if "interests" not in clean:  # "to Hampi" alone is enough: use Hampi's themes
+            themes = {c for pid in must for c in PLACES[pid]["categories"]}
+            clean["interests"] = [i for i in ALLOWED["interests"] if i in themes]
     clean["language"] = "kn" if data.get("language") == "kn" else "en"
     if isinstance(data.get("transcript"), str):
         clean["transcript"] = data["transcript"].strip()

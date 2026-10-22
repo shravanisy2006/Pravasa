@@ -106,8 +106,16 @@ STRINGS = {
     "f_stay": {"en": "Stay style", "kn": "ವಸತಿಯ ಬಗೆ"},
     "f_interests": {"en": "What do you enjoy?", "kn": "ನಿಮಗೆ ಏನು ಇಷ್ಟ?"},
     "f_language": {"en": "Trip story language", "kn": "ಪ್ರವಾಸ ಕಥೆಯ ಭಾಷೆ"},
-    "pick_interest": {"en": "Pick at least one thing you enjoy, so Pravasa knows what to plan.",
-                      "kn": "ಯೋಜನೆಗಾಗಿ ನಿಮಗೆ ಇಷ್ಟವಾದ ಕನಿಷ್ಠ ಒಂದನ್ನು ಆರಿಸಿ."},
+    "pick_interest": {"en": "Pick at least one thing you enjoy, or a place you must see, "
+                            "so Pravasa knows what to plan.",
+                      "kn": "ಯೋಜನೆಗಾಗಿ ನಿಮಗೆ ಇಷ್ಟವಾದ ಕನಿಷ್ಠ ಒಂದನ್ನು ಅಥವಾ ನೋಡಲೇಬೇಕಾದ "
+                            "ಒಂದು ಸ್ಥಳವನ್ನು ಆರಿಸಿ."},
+    "f_must": {"en": "Places you must see (optional)", "kn": "ನೋಡಲೇಬೇಕಾದ ಸ್ಥಳಗಳು (ಐಚ್ಛಿಕ)"},
+    "f_must_ph": {"en": "e.g. Hampi, Jog Falls", "kn": "ಉದಾ: ಹಂಪಿ, ಜೋಗ ಜಲಪಾತ"},
+    "f_must_help": {"en": "Pravasa plans the trip around these. Sights inside your starting "
+                          "city are left out of longer trips unless you add them here.",
+                    "kn": "ಈ ಸ್ಥಳಗಳ ಸುತ್ತ ಪ್ರವಾಸ ಯೋಜಿಸಲಾಗುತ್ತದೆ. ನೀವು ಹೊರಡುವ ನಗರದೊಳಗಿನ "
+                          "ಸ್ಥಳಗಳನ್ನು ಇಲ್ಲಿ ಸೇರಿಸದಿದ್ದರೆ, ದೀರ್ಘ ಪ್ರವಾಸಗಳಲ್ಲಿ ಬಿಡಲಾಗುತ್ತದೆ."},
 
     # ---------- My trip ----------
     "trip_empty_sub": {"en": "Your plan will appear here once you've made one.",
@@ -352,9 +360,29 @@ WORDS_KN = {
 MONTHS_KN = ["ಜನವರಿ", "ಫೆಬ್ರವರಿ", "ಮಾರ್ಚ್", "ಏಪ್ರಿಲ್", "ಮೇ", "ಜೂನ್", "ಜುಲೈ", "ಆಗಸ್ಟ್",
              "ಸೆಪ್ಟೆಂಬರ್", "ಅಕ್ಟೋಬರ್", "ನವೆಂಬರ್", "ಡಿಸೆಂಬರ್"]
 
-# "from Bengaluru" etc. in Kannada
-CITY_FROM_KN = {"Bengaluru": "ಬೆಂಗಳೂರಿನಿಂದ", "Mysuru": "ಮೈಸೂರಿನಿಂದ",
-                "Mangaluru": "ಮಂಗಳೂರಿನಿಂದ", "Hubballi": "ಹುಬ್ಬಳ್ಳಿಯಿಂದ"}
+# Starting cities in Kannada: (name, "from <city>")
+CITIES_KN = {
+    "Bengaluru": ("ಬೆಂಗಳೂರು", "ಬೆಂಗಳೂರಿನಿಂದ"), "Mysuru": ("ಮೈಸೂರು", "ಮೈಸೂರಿನಿಂದ"),
+    "Mangaluru": ("ಮಂಗಳೂರು", "ಮಂಗಳೂರಿನಿಂದ"), "Hubballi": ("ಹುಬ್ಬಳ್ಳಿ", "ಹುಬ್ಬಳ್ಳಿಯಿಂದ"),
+    "Bagalkote": ("ಬಾಗಲಕೋಟೆ", "ಬಾಗಲಕೋಟೆಯಿಂದ"), "Ballari": ("ಬಳ್ಳಾರಿ", "ಬಳ್ಳಾರಿಯಿಂದ"),
+    "Belagavi": ("ಬೆಳಗಾವಿ", "ಬೆಳಗಾವಿಯಿಂದ"), "Bidar": ("ಬೀದರ್", "ಬೀದರ್‌ನಿಂದ"),
+    "Chamarajanagar": ("ಚಾಮರಾಜನಗರ", "ಚಾಮರಾಜನಗರದಿಂದ"),
+    "Chikkaballapur": ("ಚಿಕ್ಕಬಳ್ಳಾಪುರ", "ಚಿಕ್ಕಬಳ್ಳಾಪುರದಿಂದ"),
+    "Chikkamagaluru": ("ಚಿಕ್ಕಮಗಳೂರು", "ಚಿಕ್ಕಮಗಳೂರಿನಿಂದ"),
+    "Chitradurga": ("ಚಿತ್ರದುರ್ಗ", "ಚಿತ್ರದುರ್ಗದಿಂದ"), "Davanagere": ("ದಾವಣಗೆರೆ", "ದಾವಣಗೆರೆಯಿಂದ"),
+    "Dharwad": ("ಧಾರವಾಡ", "ಧಾರವಾಡದಿಂದ"), "Gadag": ("ಗದಗ", "ಗದಗದಿಂದ"),
+    "Hassan": ("ಹಾಸನ", "ಹಾಸನದಿಂದ"), "Haveri": ("ಹಾವೇರಿ", "ಹಾವೇರಿಯಿಂದ"),
+    "Hosapete": ("ಹೊಸಪೇಟೆ", "ಹೊಸಪೇಟೆಯಿಂದ"), "Kalaburagi": ("ಕಲಬುರಗಿ", "ಕಲಬುರಗಿಯಿಂದ"),
+    "Karwar": ("ಕಾರವಾರ", "ಕಾರವಾರದಿಂದ"), "Kolar": ("ಕೋಲಾರ", "ಕೋಲಾರದಿಂದ"),
+    "Koppal": ("ಕೊಪ್ಪಳ", "ಕೊಪ್ಪಳದಿಂದ"), "Madikeri": ("ಮಡಿಕೇರಿ", "ಮಡಿಕೇರಿಯಿಂದ"),
+    "Mandya": ("ಮಂಡ್ಯ", "ಮಂಡ್ಯದಿಂದ"), "Raichur": ("ರಾಯಚೂರು", "ರಾಯಚೂರಿನಿಂದ"),
+    "Ramanagara": ("ರಾಮನಗರ", "ರಾಮನಗರದಿಂದ"), "Shivamogga": ("ಶಿವಮೊಗ್ಗ", "ಶಿವಮೊಗ್ಗದಿಂದ"),
+    "Sirsi": ("ಶಿರಸಿ", "ಶಿರಸಿಯಿಂದ"), "Tumakuru": ("ತುಮಕೂರು", "ತುಮಕೂರಿನಿಂದ"),
+    "Udupi": ("ಉಡುಪಿ", "ಉಡುಪಿಯಿಂದ"), "Vijayapura": ("ವಿಜಯಪುರ", "ವಿಜಯಪುರದಿಂದ"),
+    "Yadgir": ("ಯಾದಗಿರಿ", "ಯಾದಗಿರಿಯಿಂದ"),
+}
+WORDS_KN.update({city: names[0] for city, names in CITIES_KN.items()})
+CITY_FROM_KN = {city: names[1] for city, names in CITIES_KN.items()}
 
 HELPLINE_KN = {
     "🚨 All emergencies (police, fire, ambulance)": "🚨 ಎಲ್ಲಾ ತುರ್ತು ಸೇವೆಗಳು (ಪೊಲೀಸ್, ಅಗ್ನಿಶಾಮಕ, ಆಂಬ್ಯುಲೆನ್ಸ್)",
