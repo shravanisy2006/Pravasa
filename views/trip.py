@@ -7,7 +7,7 @@ import streamlit as st
 
 import ui
 from ai import ai_available, stream_story
-from common import HOME, PLAN, footer, load_destinations, page_banner, photo_section
+from common import HOME, PLAN, footer, load_destinations, loading, page_banner, photo_section
 from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from i18n import CITY_FROM_KN, is_kn, month_name, pf, t, time_text, w
 from places import (get_gallery, get_place_info, get_place_info_kn, get_traveller_notes,
@@ -37,7 +37,7 @@ if "result" not in st.session_state:
 # ---------- The trip ----------
 info = st.session_state["result_info"]
 month = info["month"]
-with st.spinner(t("finding_routes")):
+with loading(t("planning_now"), t("finding_routes")):
     result = add_real_roads(st.session_state["result"], info["start_city"], info["transport"])
 costs = result["costs"]
 
@@ -76,7 +76,7 @@ if trip_tips:
             st.markdown(f"- {msg}")
 
 # Fetch photos, notes, hotels and weather for the whole trip at the same time
-with st.spinner(t("loading")):
+with loading(t("planning_now"), t("loading")):
     stops = [s["place"] for d in result["days"] for s in d["stops"]]
     nights = [d["stops"][-1]["place"] for d in result["days"][:-1] if d["stops"]]
     with ThreadPoolExecutor(max_workers=10) as pool:

@@ -56,6 +56,12 @@ STRINGS = {
                         "ನೀವೇ ಆರಿಸಿ."},
     "no_key": {"en": "The AI isn't set up yet: add your GEMINI_API_KEY to the .env file.",
                "kn": "AI ಇನ್ನೂ ಸಿದ್ಧವಾಗಿಲ್ಲ: .env ಫೈಲ್‌ಗೆ GEMINI_API_KEY ಸೇರಿಸಿ."},
+    "planning_now": {"en": "Planning your trip…", "kn": "ನಿಮ್ಮ ಪ್ರವಾಸ ಸಿದ್ಧವಾಗುತ್ತಿದೆ…"},
+    "planning_sub": {"en": "Finding places, roads and stays across Karnataka",
+                     "kn": "ಕರ್ನಾಟಕದಾದ್ಯಂತ ಸ್ಥಳಗಳು, ದಾರಿಗಳು ಮತ್ತು ವಸತಿ ಹುಡುಕುತ್ತಿದೆ"},
+    "listening_sub": {"en": "Understanding what you said",
+                      "kn": "ನೀವು ಹೇಳಿದ್ದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುತ್ತಿದೆ"},
+    "try_label": {"en": "Or tap an example", "kn": "ಅಥವಾ ಒಂದು ಉದಾಹರಣೆ ಆರಿಸಿ"},
     "choose_self": {"en": "Prefer to choose every detail yourself?",
                     "kn": "ಎಲ್ಲಾ ವಿವರಗಳನ್ನು ನೀವೇ ಆರಿಸಲು ಬಯಸುವಿರಾ?"},
     "explore_title": {"en": "Explore by what you love", "kn": "ನಿಮ್ಮ ಇಷ್ಟದಂತೆ ಅನ್ವೇಷಿಸಿ"},
@@ -379,6 +385,22 @@ SEASON_ROWS = {
         ("ವನ್ಯಜೀವಿ ಉದ್ಯಾನಗಳು (ಬಂಡೀಪುರ, ಕಬಿನಿ)", "ಅಕ್ಟೋಬರ್–ಮೇ", "ಮುಂಗಾರಿನಲ್ಲಿ ಕೆಲವು ಸಫಾರಿಗಳು ಸೀಮಿತ"),
     ],
 }
+
+
+# One-tap examples on the home page. Their settings are ready-made,
+# so they plan instantly without waiting for the AI.
+EXAMPLES = [
+    ({"en": "3 days from Mysuru: wildlife and nature",
+      "kn": "ಮೈಸೂರಿನಿಂದ 3 ದಿನ: ಕಾಡು ಮತ್ತು ಪ್ರಕೃತಿ"},
+     {"days": 3, "start_city": "Mysuru", "interests": ["Wildlife", "Nature"], "budget": 15000}),
+    ({"en": "A temple weekend from Bengaluru, ₹8,000",
+      "kn": "ಬೆಂಗಳೂರಿನಿಂದ ವಾರಾಂತ್ಯದ ದೇವಾಲಯ ಪ್ರವಾಸ, ₹8,000"},
+     {"days": 2, "start_city": "Bengaluru", "interests": ["Temples", "Heritage"], "budget": 8000}),
+    ({"en": "4 days on the coast from Mangaluru",
+      "kn": "ಮಂಗಳೂರಿನಿಂದ 4 ದಿನ ಕರಾವಳಿ ಪ್ರವಾಸ"},
+     {"days": 4, "start_city": "Mangaluru", "interests": ["Beaches", "Food", "Temples"],
+      "budget": 20000}),
+]
 
 
 def lang():

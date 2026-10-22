@@ -26,7 +26,11 @@ from dotenv import load_dotenv
 load_dotenv()  # reads GEMINI_API_KEY from the .env file on your laptop
 
 MODEL = "gemini-3.8-flash"  # change here if Google renames the model
+# A smaller, quicker model for understanding requests (voice and typed).
+# If it isn't available on your key, Pravasa automatically uses MODEL instead.
+QUICK_MODEL = "gemini-3.5-flash-lite"
 FAST = {"thinking_level": "low"}  # less "thinking" = faster answers
+_quick_ok = True  # becomes False if the quick model fails, so we stop trying it
 
 ALLOWED = {
     "start_city": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi"],
@@ -81,22 +85,28 @@ def ai_available():
     return bool(_api_key())
 
 
-def _ask(system_instruction, prompt):
-    """Send one request to Gemini and return its text (or None on failure)."""
+def _ask(system_instruction, prompt, quick=False):
+    """Send one request to Gemini and return its text (or None on failure).
+    quick=True tries the faster QUICK_MODEL first, then falls back to MODEL."""
+    global _quick_ok
     client = _client()
     if client is None:
         return None
-    try:
-        interaction = client.interactions.create(
-            model=MODEL,
-            system_instruction=system_instruction,
-            input=prompt,
-            generation_config=FAST,
-        )
-        return interaction.output_text
-    except Exception as e:  # network problem, quota reached, wrong key...
-        print("Gemini error:", e)
-        return None
+    models = [QUICK_MODEL, MODEL] if (quick and _quick_ok) else [MODEL]
+    for model in models:
+        try:
+            interaction = client.interactions.create(
+                model=model,
+                system_instruction=system_instruction,
+                input=prompt,
+                generation_config=FAST,
+            )
+            return interaction.output_text
+        except Exception as e:  # network problem, quota reached, wrong key...
+            print(f"Gemini error ({model}):", e)
+            if model == QUICK_MODEL:
+                _quick_ok = False  # use the main model from now on
+    return None
 
 
 def _parse_settings(reply):
@@ -138,7 +148,7 @@ def understand_request(text):
         "Karnataka. The message may be in English, Kannada or a mix.\n"
         + SETTINGS_INSTRUCTIONS
     )
-    return _parse_settings(_ask(system, text))
+    return _parse_settings(_ask(system, text, quick=True))
 
 
 def understand_audio(audio_bytes, mime_type="audio/wav"):
@@ -156,7 +166,7 @@ def understand_audio(audio_bytes, mime_type="audio/wav"):
          "data": base64.b64encode(audio_bytes).decode("utf-8"),
          "mime_type": mime_type},
     ]
-    return _parse_settings(_ask(system, prompt))
+    return _parse_settings(_ask(system, prompt, quick=True))
 
 
 def _story_request(result, start_city, language):

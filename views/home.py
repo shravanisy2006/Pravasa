@@ -7,8 +7,8 @@ import streamlit as st
 import ui
 from ai import ai_available, understand_audio, understand_request
 from common import (EXPLORE, INTERESTS, PLAN, apply_ai_settings, build_plan_and_open, footer,
-                    lang_switch, load_destinations, photo_section)
-from i18n import t
+                    lang_switch, load_destinations, loading, photo_section)
+from i18n import EXAMPLES, lang, t
 from places import get_place_info
 
 destinations = load_destinations()
@@ -36,7 +36,7 @@ with st.container(key="hero"):
                 if not ai_available():
                     st.error(t("no_key"))
                 else:
-                    with st.spinner(t("listening")):
+                    with loading(t("listening"), t("listening_sub")):
                         settings = understand_audio(audio_bytes, recording.type or "audio/wav")
                     if settings and settings.get("interests"):
                         st.session_state["heard"] = settings.get("transcript", "")
@@ -63,7 +63,7 @@ with st.container(key="hero"):
                 st.warning(t("type_first"))
             else:
                 st.session_state["heard"] = ""
-                with st.spinner(t("reading")):
+                with loading(t("reading"), t("planning_sub")):
                     settings = understand_request(request)
                 if settings and settings.get("interests"):
                     apply_ai_settings(settings)
@@ -72,6 +72,14 @@ with st.container(key="hero"):
                     st.warning(t("add_interest"))
                 else:
                     st.error(t("cant_read"))
+        # One-tap examples: ready-made settings, so they plan instantly (no AI wait)
+        st.html(f'<p class="pv-try">{ui.e(t("try_label"))}</p>')
+        with st.container(horizontal=True, wrap=True, gap="small", key="examples"):
+            for n, (label, settings) in enumerate(EXAMPLES):
+                if st.button(label[lang()], key=f"ex_{n}"):
+                    apply_ai_settings({**settings, "language": lang()})
+                    st.session_state["heard"] = ""
+                    build_plan_and_open()
         st.page_link(PLAN, label=t("choose_self"), icon="🗓️")
 
 st.html(ui.flag_band())

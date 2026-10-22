@@ -59,8 +59,8 @@ STYLE = """
 .pv-brandrow { display: flex; align-items: center; gap: .75rem; margin: 0 0 .25rem; }
 .pv-brandrow img { width: 64px; height: auto; }
 .pv-brand {
-  font-family: var(--pv-display) !important; font-weight: 800; font-size: 1.6rem !important;
-  color: var(--pv-ink) !important; margin: 0; line-height: 1;
+  font-family: var(--pv-display) !important; font-weight: 600; font-size: 1.15rem !important;
+  color: var(--pv-red) !important; margin: 0; line-height: 1.2;
 }
 .pv-word {
   font-family: var(--pv-display) !important; font-weight: 800;
@@ -390,9 +390,13 @@ header [data-testid="stPageLink-NavLink"] p { font-weight: 600; }
     linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.92)),
     var(--pv-sec-photo, linear-gradient(#FFFFFF, #FFFFFF)) center / cover no-repeat;
   width: 100vw !important; max-width: 100vw !important;
-  margin: 2rem calc(50% - 50vw) 0; box-sizing: border-box;
+  margin: -1rem calc(50% - 50vw) 0; box-sizing: border-box;
   padding: 1rem max(1rem, calc(50vw - 560px)) 2.5rem;
-  border-top: 1px solid var(--pv-line); border-bottom: 1px solid var(--pv-line);
+  border-bottom: 1px solid var(--pv-line);
+}
+/* Sections further down the page get breathing room above them */
+.st-key-photo_how, .st-key-photo_costs {
+  margin-top: 2.5rem !important; border-top: 1px solid var(--pv-line);
 }
 [class*="st-key-photo_"] .pv-h2 { margin-top: 1.25rem; }
 
@@ -400,7 +404,42 @@ header [data-testid="stPageLink-NavLink"] p { font-weight: 600; }
 .st-key-langbar { align-items: flex-end; }
 .st-key-langbar [data-testid="stButtonGroup"] { justify-content: flex-end; }
 
-@media (prefers-reduced-motion: reduce) { .pvg-track { transition: none; } }
+
+/* ---------- Loading card (yellow-to-red bar, like the flag) ---------- */
+.pv-loader {
+  margin: 1.5rem auto; max-width: 560px; background: #FFFFFF; text-align: left;
+  border: 1px solid var(--pv-line); border-radius: 20px; padding: 1.3rem 1.5rem 1.4rem;
+  box-shadow: 0 12px 30px rgba(60, 30, 10, .10);
+}
+.pv-loader-title {
+  font-family: var(--pv-display) !important; font-weight: 800; font-size: 1.35rem !important;
+  color: var(--pv-ink); margin: 0;
+}
+.pv-loader-sub { color: var(--pv-muted); font-size: .95rem; margin: .15rem 0 0; }
+.pv-loader-bar {
+  height: 8px; border-radius: 999px; background: var(--pv-yellow-soft);
+  overflow: hidden; margin-top: 1rem; position: relative;
+}
+.pv-loader-bar::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
+  border-radius: 999px; background: linear-gradient(90deg, var(--pv-yellow), var(--pv-red));
+  animation: pv-slide 1.2s ease-in-out infinite;
+}
+@keyframes pv-slide { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+
+/* ---------- One-tap example chips ---------- */
+.pv-try { font-size: .85rem; color: var(--pv-muted); margin: .4rem 0 .1rem; }
+[class*="st-key-ex_"] button {
+  border-radius: 999px; padding: .2rem .85rem; min-height: 0;
+  background: var(--pv-yellow-soft); border: 1px solid #F3DE9A;
+}
+[class*="st-key-ex_"] button p { font-size: .85rem; }
+[class*="st-key-ex_"] button:hover { border-color: var(--pv-red); color: var(--pv-red); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pvg-track { transition: none; }
+  .pv-loader-bar::after { animation: none; width: 100%; }
+}
 @media (max-width: 640px) {
   .st-key-hero {
     padding: 1.75rem 1rem 2rem;
@@ -437,8 +476,7 @@ def section_photo_style(key, photo_url):
 
 def hero_intro(place_count):
     return f"""
-<div class="pv-brandrow"><img src="app/static/logo.png" alt="Pravasa logo">
-<p class="pv-brand">{"ಪ್ರವಾಸ" if is_kn() else "Pravasa"}</p></div>
+<p class="pv-brand">{"ಕರ್ನಾಟಕ ಪ್ರವಾಸ ಯೋಜಕ" if is_kn() else "Pravasa · Karnataka trip planner"}</p>
 <h1 class="pv-word">ಪ್ರವಾಸ</h1>
 <p class="pv-lede">{e(t("lede"))}</p>
 <ul class="pv-points">
@@ -447,6 +485,12 @@ def hero_intro(place_count):
   <li>{e(t("point3"))}</li>
 </ul>
 """
+
+
+def loader(title, sub=""):
+    sub_html = f'<p class="pv-loader-sub">{e(sub)}</p>' if sub else ""
+    return (f'<div class="pv-loader" role="status"><p class="pv-loader-title">{e(title)}</p>'
+            f'{sub_html}<div class="pv-loader-bar"></div></div>')
 
 
 def flag_band():

@@ -7,6 +7,7 @@ switch, and the light place photos behind sections.
 import calendar
 import datetime
 import json
+from contextlib import contextmanager
 
 import streamlit as st
 
@@ -115,6 +116,17 @@ def photo_section(key, place_name, district):
     if style:
         st.html(style)
     return st.container(key=f"photo_{key}")
+
+
+@contextmanager
+def loading(title, sub=""):
+    """Show a friendly loading card while something slow runs, then remove it."""
+    box = st.empty()
+    box.html(ui.loader(title, sub))
+    try:
+        yield
+    finally:
+        box.empty()
 
 
 def footer():
