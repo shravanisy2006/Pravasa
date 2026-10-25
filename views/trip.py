@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import ui
-from ai import ai_available, stream_story, write_story
+from ai import ai_available, story_in_time
 from common import HOME, PLAN, footer, load_destinations, loading, page_banner, photo_section
 from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from i18n import CITY_FROM_KN, is_kn, month_name, pf, t, time_text, w
@@ -224,13 +224,9 @@ with story_box:
             box = st.empty()
             box.caption(f"✍️ {t('writing_story')}")
             story = ""
-            if ai_available():
-                with box:  # 1. the AI story, appearing word by word
-                    story = st.write_stream(stream_story(result, info["start_city"],
-                                                         speech_lang)) or ""
-                if not story.strip():  # 2. try again without streaming
-                    story = write_story(result, info["start_city"], speech_lang) or ""
-            if not story.strip():  # 3. no AI: Pravasa's own short summary
+            if ai_available():  # 1. the AI story (waits 20 seconds at most)
+                story = story_in_time(result, info["start_city"], speech_lang) or ""
+            if not story.strip():  # 2. AI slow or unavailable: Pravasa's own summary
                 story = plan_script(result, info["start_city"], speech_lang)
             st.session_state["story"] = story
             box.markdown(story)

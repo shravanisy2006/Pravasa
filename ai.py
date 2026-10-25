@@ -20,6 +20,8 @@ import base64
 import json
 import os
 import re
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as TookTooLong
 
 from dotenv import load_dotenv
 
@@ -95,7 +97,8 @@ def _client():
         return None
     if _CLIENT is None:
         from google import genai
-        _CLIENT = genai.Client(api_key=key)
+        # Give up on any single Gemini request after 25 seconds
+        _CLIENT = genai.Client(api_key=key, http_options={"timeout": 25_000})
     return _CLIENT
 
 
@@ -232,6 +235,22 @@ def stream_story(result, start_city, language="en"):
                 return
     except Exception as e:
         print("Gemini story error:", e)
+
+
+_STORY_WORKER = ThreadPoolExecutor(max_workers=2)
+
+
+def story_in_time(result, start_city, language="en", seconds=20):
+    """Ask for the trip story, but wait at most `seconds`.
+    Returns None if Gemini is too slow or fails, so the page never hangs."""
+    job = _STORY_WORKER.submit(write_story, result, start_city, language)
+    try:
+        return job.result(timeout=seconds)
+    except TookTooLong:
+        print(f"Gemini story: no answer in {seconds} seconds, using the simple summary")
+    except Exception as e:
+        print("Gemini story error:", e)
+    return None
 
 
 def write_story(result, start_city, language="en"):
