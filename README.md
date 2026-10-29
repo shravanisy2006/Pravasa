@@ -1,5 +1,7 @@
 # Pravasa (ಪ್ರವಾಸ): Karnataka AI Travel Planner
 
+**Event theme: Celebrate Karnataka.** Pravasa celebrates Karnataka's places, festivals and language: plan a trip in Kannada, see the festivals on your route, and pick up a few Kannada words on the way.
+
 Pravasa plans a personalised, day-by-day trip across Karnataka from a typed or **spoken** request in **Kannada or English**. The plan is built from a verified dataset of real places, with real road distances, so the AI never invents destinations, distances or prices.
 
 **Live app:** https://YOUR-APP-NAME.streamlit.app
@@ -25,6 +27,7 @@ Tourists planning a Karnataka trip piece it together from blogs, travel agents a
 | English text only | Kannada or English, typed **or spoken**, with answers read aloud in Kannada |
 | No season awareness | Season warnings (monsoon, summer heat) plus real weather data |
 | Just text | Map, photos, history, transport options, hotels, budget check and a PDF |
+| Culture left out | Festivals on your route, a 12-month festival calendar, and Kannada phrases you can hear |
 
 The AI (Google Gemini) is used only where it's strong: understanding free-form requests and writing a friendly narrative about places that our planner has already chosen.
 
@@ -36,6 +39,12 @@ The AI (Google Gemini) is used only where it's strong: understanding free-form r
 - Plan from a form, a typed sentence, or your voice (Kannada or English)
 - Day-by-day itinerary that fits each day into about 9 hours of travel and sightseeing
 - Budget check with a cost breakdown for travel, stay, food and entry fees
+
+**Celebrate Karnataka**
+- Home page: festivals that usually happen this month (Karnataka Rajyotsava in November, Mysuru Dasara, Kambala and more)
+- My trip: festivals usually held on your route in your travel month
+- Explore: a 12-month calendar of 20 Karnataka festivals
+- Speak a little Kannada: 10 travel phrases with a 🔊 button to hear each one (Help page and My trip)
 
 **Each place**
 - A photo gallery from Wikimedia Commons, a short history from Wikipedia, and what it's famous for
@@ -111,6 +120,7 @@ destinations.json ─────────────────► Planner
 | `trip_map.py` | Real road distances and the route map |
 | `extras.py` | Transport options, nearby places, hotels |
 | `weather.py` | Weather, season tips, helplines |
+| `festivals.py` | Karnataka festivals by month, and Kannada travel phrases |
 | `report.py` | PDF itinerary |
 | `static/` | Website fonts, logo and icon |
 | `fonts/` | Noto fonts for Kannada in the PDF (SIL Open Font License) |
@@ -146,6 +156,8 @@ The app still works without a key. You can plan with the form, and only the AI f
 - Entry fees, timings and costs are approximate. Please confirm locally before travelling.
 - Hotel suggestions come from OpenStreetMap and don't include live prices or availability.
 - The weather forecast assumes the trip starts today. For later months, it shows that month's real weather from last year.
+- Festivals are shown by their usual months; exact dates follow the lunar calendar and change each year.
+- Trips use 55 selected destinations and 32 starting cities, not every place in Karnataka.
 - No login is needed.
 
 ## Future scope

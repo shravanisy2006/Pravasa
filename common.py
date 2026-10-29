@@ -139,5 +139,31 @@ def loading(title, sub=""):
         box.empty()
 
 
+def kannada_phrases(key):
+    """'Speak a little Kannada': travel phrases with a 🔊 button that says each one."""
+    from festivals import PHRASES
+    from voice import speak
+    with st.container(key=key):
+        st.html(f'<p class="pv-h3" style="margin-top:0">{t("phrases_title")}</p>'
+                f'<p class="pv-sub">{ui.e(t("phrases_sub"))}</p>')
+        playing = None
+        for n, (kannada, say, means) in enumerate(PHRASES):
+            c1, c2, c3 = st.columns([2.2, 2.2, 0.6], vertical_alignment="center")
+            with c1:
+                st.html(f'<p class="pv-phrase-kn">{ui.e(kannada)}</p>'
+                        f'<p class="pv-phrase-say">{ui.e(say)}</p>')
+            with c2:
+                st.html(f'<p class="pv-phrase-means">{ui.e(means)}</p>')
+            with c3:
+                if st.button("🔊", key=f"{key}_say_{n}", help=say):
+                    playing = kannada
+        if playing:
+            audio = speak(playing, "kn")
+            if audio:
+                st.audio(audio, format="audio/mp3", autoplay=True)
+            else:
+                st.caption(t("audio_error"))
+
+
 def footer():
     st.html(ui.footer())

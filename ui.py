@@ -13,8 +13,8 @@ and it matches the Pravasa logo.
 
 import html
 
-from i18n import (HELPLINE_KN, SEASON_ROWS, WORDS_KN, is_kn, lang, month_short, pf,
-                  t, w)
+from i18n import (HELPLINE_KN, SEASON_ROWS, WORDS_KN, is_kn, lang, month_name,
+                  month_short, pf, t, w)
 
 STYLE = """
 <style>
@@ -436,6 +436,40 @@ header [data-testid="stPageLink-NavLink"] p { font-weight: 600; }
 [class*="st-key-ex_"] button p { font-size: .85rem; }
 [class*="st-key-ex_"] button:hover { border-color: var(--pv-red); color: var(--pv-red); }
 
+
+/* ---------- Festivals ---------- */
+.pv-fests { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin: .5rem 0 1rem; }
+.pv-fest {
+  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 18px; padding: 1.1rem 1.2rem;
+  box-shadow: 0 4px 14px rgba(36, 32, 30, .05);
+}
+.pv-fest-when {
+  display: inline-block; background: var(--pv-yellow-soft); color: var(--pv-ink); border-radius: 999px;
+  padding: .15rem .65rem; font-size: .8rem !important; font-weight: 600; margin: 0 0 .5rem !important;
+}
+.pv-fest-name { font-family: var(--pv-display) !important; font-size: 1.25rem !important; font-weight: 800;
+  color: var(--pv-red) !important; margin: 0 !important; line-height: 1.25; }
+.pv-fest-alt { color: var(--pv-muted) !important; font-size: .9rem !important; margin: .1rem 0 .4rem !important; }
+.pv-fest-where { font-size: .9rem !important; font-weight: 600; margin: 0 0 .35rem !important; }
+.pv-fest-about { font-size: .95rem !important; line-height: 1.55; margin: 0 !important; }
+.pv-fest-note { color: var(--pv-muted) !important; font-size: .85rem !important; margin: .25rem 0 0 !important; }
+.pv-cal { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .75rem; margin: .5rem 0 1rem; }
+.pv-cal-month { background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 14px; padding: .8rem 1rem; }
+.pv-cal-month.pv-now { border: 2px solid var(--pv-red); }
+.pv-cal-name { font-family: var(--pv-display) !important; font-weight: 800; font-size: 1.05rem !important;
+  color: var(--pv-red) !important; margin: 0 0 .35rem !important; }
+.pv-cal-month ul { margin: 0; padding-left: 1.1rem; }
+.pv-cal-month li { font-size: .9rem; line-height: 1.5; }
+
+/* ---------- Kannada phrases ---------- */
+.st-key-phrases {
+  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 18px; padding: 1.25rem 1.5rem;
+}
+.pv-phrase-kn { font-family: "Noto Sans Kannada", sans-serif; font-size: 1.15rem !important; font-weight: 700;
+  margin: 0 !important; }
+.pv-phrase-say { color: var(--pv-muted) !important; font-size: .85rem !important; margin: 0 !important; }
+.pv-phrase-means { font-size: .95rem !important; margin: 0 !important; }
+
 @media (prefers-reduced-motion: reduce) {
   .pvg-track { transition: none; }
   .pv-loader-bar::after { animation: none; width: 100%; }
@@ -476,7 +510,7 @@ def section_photo_style(key, photo_url):
 
 def hero_intro(place_count):
     return f"""
-<p class="pv-brand">{"ಕರ್ನಾಟಕ ಪ್ರವಾಸ ಯೋಜಕ" if is_kn() else "Pravasa · Karnataka trip planner"}</p>
+<p class="pv-brand">{e(t("brand_line"))}</p>
 <h1 class="pv-word">ಪ್ರವಾಸ</h1>
 <p class="pv-lede">{e(t("lede"))}</p>
 <ul class="pv-points">
@@ -664,3 +698,42 @@ def season_guide():
     return (f'<table class="pv-season"><thead><tr><th>{e(t("th_area"))}</th>'
             f'<th>{e(t("th_best"))}</th><th>{e(t("th_mind"))}</th></tr></thead>'
             f'<tbody>{body}</tbody></table>')
+
+
+# ---------- Festivals ----------
+
+def _fest_months(months):
+    """'Nov to Mar' style text for a festival's usual months."""
+    if len(months) == 1:
+        return month_name(months[0])
+    in_a_row = all(months[i] % 12 + 1 == months[i + 1] for i in range(len(months) - 1))
+    if not in_a_row:  # e.g. the Lalbagh show in January and August
+        return " · ".join(month_short(m) for m in months)
+    return t("fest_months", a=month_short(months[0]), b=month_short(months[-1]))
+
+
+def festival_cards(festivals):
+    """Cards for festivals: name in both languages, when, where and what happens."""
+    cards = ""
+    for f in festivals:
+        name, alt = (f["name_kn"], f["name"]) if is_kn() else (f["name"], f["name_kn"])
+        where = f["where_kn"] if is_kn() else f["where"]
+        about = f["about_kn"] if is_kn() else f["about"]
+        cards += (f'<div class="pv-fest"><p class="pv-fest-when">🎉 {e(_fest_months(f["months"]))}</p>'
+                  f'<p class="pv-fest-name">{e(name)}</p><p class="pv-fest-alt">{e(alt)}</p>'
+                  f'<p class="pv-fest-where">📍 {e(where)}</p>'
+                  f'<p class="pv-fest-about">{e(about)}</p></div>')
+    return (f'<div class="pv-fests">{cards}</div>'
+            f'<p class="pv-fest-note">{e(t("fest_check"))}</p>')
+
+
+def festival_calendar(festivals, this_month):
+    """A 12-month calendar of Karnataka's festivals; this month is outlined in red."""
+    out = ""
+    for m in range(1, 13):
+        names = [f["name_kn"] if is_kn() else f["name"] for f in festivals if m in f["months"]]
+        items = "".join(f"<li>{e(n)}</li>" for n in names) or f"<li>{e(t('fest_none'))}</li>"
+        now = " pv-now" if m == this_month else ""
+        out += (f'<div class="pv-cal-month{now}"><p class="pv-cal-name">{e(month_name(m))}</p>'
+                f'<ul>{items}</ul></div>')
+    return f'<div class="pv-cal">{out}</div><p class="pv-fest-note">{e(t("fest_check"))}</p>'

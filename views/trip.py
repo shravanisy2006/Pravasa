@@ -7,7 +7,9 @@ import streamlit as st
 
 import ui
 from ai import ai_available, story_in_time
-from common import HOME, PLAN, footer, load_destinations, loading, page_banner, photo_section
+from common import (HOME, PLAN, footer, kannada_phrases, load_destinations, loading,
+                    page_banner, photo_section)
+from festivals import festivals_in
 from extras import hotel_search_link, hotels_near, nearby_places, transport_options
 from i18n import CITY_FROM_KN, is_kn, month_name, pf, t, time_text, w
 from places import (get_gallery, get_place_info, get_place_info_kn, get_traveller_notes,
@@ -74,6 +76,13 @@ if trip_tips:
     with st.expander(f"⚠️ {t('season_exp', month=month_name(month))}", expanded=True):
         for msg in trip_tips:
             st.markdown(f"- {msg}")
+
+# Festivals usually held this month in the regions on the route
+trip_regions = {s["place"]["region"] for d in result["days"] for s in d["stops"]}
+trip_festivals = festivals_in(month, trip_regions)
+if trip_festivals:
+    st.html(ui.section_title(t("fest_trip_title"), t("fest_trip_sub", month=month_name(month))))
+    st.html(ui.festival_cards(trip_festivals))
 
 # Fetch photos, notes, hotels and weather for the whole trip at the same time
 with loading(t("planning_now"), t("loading")):
@@ -200,6 +209,9 @@ for i, (tab, day) in enumerate(zip(tabs, result["days"])):
                 st.link_button(t("more_hotels"), hotel_search_link(night["name"]), icon="🏨")
 
 st.caption(t("drive_home", city=w(info["start_city"]), km=result["return_km"]))
+
+with st.expander(t("phrases_exp")):
+    kannada_phrases("trip_phrases")
 
 # ---------- Costs and download, over a light photo of Udupi ----------
 with photo_section("costs", "Udupi Sri Krishna Matha", "Udupi"):

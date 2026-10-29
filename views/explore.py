@@ -7,6 +7,7 @@ import streamlit as st
 import ui
 from common import (INTERESTS, MONTHS, PLAN, footer, load_destinations, page_banner,
                     photo_section, prefs)
+from festivals import FESTIVALS
 from i18n import t, w
 from places import get_place_info, google_maps_link, google_reviews_link
 
@@ -79,6 +80,10 @@ if shown < len(matches):
     if st.button(t("x_more", n=len(matches) - shown), key="x_more"):
         st.session_state["x_shown"] = shown + 12
         st.rerun()
+
+# Festivals of Karnataka, month by month (the chosen month is outlined)
+st.html(ui.section_title(t("fest_cal_title"), t("fest_cal_sub")))
+st.html(ui.festival_calendar(FESTIVALS, this_month))
 
 st.html(f'<p class="pv-sub" style="margin-top:2rem">{ui.e(t("x_closing"))}</p>')
 st.page_link(PLAN, label=t("nav_plan"), icon="🗓️")

@@ -8,7 +8,10 @@ import ui
 from ai import ai_available, understand_audio, understand_request
 from common import (EXPLORE, INTERESTS, PLAN, apply_ai_settings, build_plan_and_open, footer,
                     lang_switch, load_destinations, loading, photo_section)
-from i18n import EXAMPLES, lang, t
+import datetime
+
+from festivals import festivals_in
+from i18n import EXAMPLES, lang, month_name, t
 from places import get_place_info
 
 destinations = load_destinations()
@@ -83,6 +86,13 @@ with st.container(key="hero"):
         st.page_link(PLAN, label=t("choose_self"), icon="🗓️")
 
 st.html(ui.flag_band())
+
+# =====================================================================
+# Celebrate Karnataka: festivals that usually happen this month
+# =====================================================================
+this_month = datetime.date.today().month
+st.html(ui.section_title(t("fest_home_title", month=month_name(this_month)), t("fest_home_sub")))
+st.html(ui.festival_cards(festivals_in(this_month)))
 
 # =====================================================================
 # Explore by what you love

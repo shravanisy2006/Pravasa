@@ -3,7 +3,7 @@
 import streamlit as st
 
 import ui
-from common import footer, page_banner, photo_section
+from common import footer, kannada_phrases, page_banner, photo_section
 from i18n import t
 from weather import HELPLINES
 
@@ -19,6 +19,9 @@ with photo_section("safety", "Jog Falls", "Shivamogga"):
     with right, st.container(key="seasonbox"):
         st.html(f'<p class="pv-h3" style="margin-top:0">{t("when_where")}</p>')
         st.html(ui.season_guide())
+
+# Speak a little Kannada
+kannada_phrases("phrases")
 
 # About Pravasa, over a light photo of Gol Gumbaz
 with photo_section("about", "Gol Gumbaz", "Vijayapura"):
