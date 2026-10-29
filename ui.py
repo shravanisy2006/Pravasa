@@ -462,8 +462,8 @@ header [data-testid="stPageLink-NavLink"] p { font-weight: 600; }
 .pv-cal-month li { font-size: .9rem; line-height: 1.5; }
 
 /* ---------- Kannada phrases ---------- */
-.st-key-phrases {
-  background: #FFFFFF; border: 1px solid var(--pv-line); border-radius: 18px; padding: 1.25rem 1.5rem;
+.st-key-phrases, .st-key-home_phrases {
+  background: #FFFFFF; margin-top: 1rem; border: 1px solid var(--pv-line); border-radius: 18px; padding: 1.25rem 1.5rem;
 }
 .pv-phrase-kn { font-family: "Noto Sans Kannada", sans-serif; font-size: 1.15rem !important; font-weight: 700;
   margin: 0 !important; }

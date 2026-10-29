@@ -139,15 +139,16 @@ def loading(title, sub=""):
         box.empty()
 
 
-def kannada_phrases(key):
-    """'Speak a little Kannada': travel phrases with a 🔊 button that says each one."""
+def kannada_phrases(key, limit=None):
+    """'Speak a little Kannada': travel phrases with a 🔊 button that says each one.
+    limit: show only the first few (the Help page shows them all)."""
     from festivals import PHRASES
     from voice import speak
     with st.container(key=key):
         st.html(f'<p class="pv-h3" style="margin-top:0">{t("phrases_title")}</p>'
                 f'<p class="pv-sub">{ui.e(t("phrases_sub"))}</p>')
         playing = None
-        for n, (kannada, say, means) in enumerate(PHRASES):
+        for n, (kannada, say, means) in enumerate(PHRASES[:limit]):
             c1, c2, c3 = st.columns([2.2, 2.2, 0.6], vertical_alignment="center")
             with c1:
                 st.html(f'<p class="pv-phrase-kn">{ui.e(kannada)}</p>'
@@ -163,6 +164,8 @@ def kannada_phrases(key):
                 st.audio(audio, format="audio/mp3", autoplay=True)
             else:
                 st.caption(t("audio_error"))
+        if limit and limit < len(PHRASES):
+            st.page_link(HELP, label=t("phrases_more", n=len(PHRASES)), icon="🗣️")
 
 
 def footer():

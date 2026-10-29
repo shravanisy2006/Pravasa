@@ -7,7 +7,7 @@ import streamlit as st
 import ui
 from ai import ai_available, understand_audio, understand_request
 from common import (EXPLORE, INTERESTS, PLAN, apply_ai_settings, build_plan_and_open, footer,
-                    lang_switch, load_destinations, loading, photo_section)
+                    kannada_phrases, lang_switch, load_destinations, loading, photo_section)
 import datetime
 
 from festivals import festivals_in
@@ -93,6 +93,9 @@ st.html(ui.flag_band())
 this_month = datetime.date.today().month
 st.html(ui.section_title(t("fest_home_title", month=month_name(this_month)), t("fest_home_sub")))
 st.html(ui.festival_cards(festivals_in(this_month)))
+
+# ...and a few Kannada words to celebrate the language
+kannada_phrases("home_phrases", limit=5)
 
 # =====================================================================
 # Explore by what you love

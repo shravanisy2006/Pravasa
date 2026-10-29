@@ -226,6 +226,8 @@ STRINGS = {
     "phrases_title": {"en": "Speak a little Kannada", "kn": "ಸ್ವಲ್ಪ ಕನ್ನಡ ಮಾತಾಡಿ"},
     "phrases_sub": {"en": "A few words go a long way. Tap 🔊 to hear each one.",
                     "kn": "ಕೆಲವು ಪದಗಳೇ ಸಾಕು, ಮನಸ್ಸು ಗೆಲ್ಲಲು. ಕೇಳಲು 🔊 ಒತ್ತಿ."},
+    "phrases_more": {"en": "See all {n} phrases on the Help & safety page",
+                     "kn": "ಎಲ್ಲಾ {n} ವಾಕ್ಯಗಳನ್ನು ಸಹಾಯ ಮತ್ತು ಸುರಕ್ಷತೆ ಪುಟದಲ್ಲಿ ನೋಡಿ"},
     "phrases_exp": {"en": "🗣️ Speak a little Kannada on your trip", "kn": "🗣️ ಪ್ರವಾಸದಲ್ಲಿ ಸ್ವಲ್ಪ ಕನ್ನಡ ಮಾತಾಡಿ"},
     "writing_story": {"en": "Writing your trip story...", "kn": "ನಿಮ್ಮ ಪ್ರವಾಸ ಕಥೆ ಬರೆಯಲಾಗುತ್ತಿದೆ..."},
     "story_unavailable": {"en": "The trip story isn't available right now. Your full plan is below.",
