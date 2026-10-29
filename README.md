@@ -4,7 +4,7 @@
 
 Pravasa plans a personalised, day-by-day trip across Karnataka from a typed or **spoken** request in **Kannada or English**. The plan is built from a verified dataset of real places, with real road distances, so the AI never invents destinations, distances or prices.
 
-**Live app:** https://YOUR-APP-NAME.streamlit.app
+**Live app:** https://pravasa-karnataka.streamlit.app/
 
 **Problem statement:** AI Travel Planner for Karnataka. Generate personalised itineraries based on budget, interests, duration, transport and travel preferences.
 
